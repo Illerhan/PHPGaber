@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 
 $bdd = new PDO('mysql:host=localhost:3308; dbname=pbdo', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
@@ -18,7 +19,6 @@ $circuit->closeCursor();
 
 $bdd = null
 ?>
-<!DOCTYPE html>
 <html>
 <head>
 
@@ -29,8 +29,9 @@ $bdd = null
   <link rel="shortcut icon" href="assets/images/fidelogo-128x125-1.png" type="image/x-icon">
   <meta name="description" content="">
 
+
   <title>Accueil</title>
-  <link rel="stylesheet" href="assets/web/assets/web-icons/web-icons.css">
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
   <link rel="stylesheet" href="assets/tether/tether.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
@@ -39,7 +40,8 @@ $bdd = null
   <link rel="stylesheet" href="assets/formstyler/jquery.formstyler.css">
   <link rel="stylesheet" href="assets/formstyler/jquery.formstyler.theme.css">
   <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="preload" as="style" href="assets/style/css/mbr-additional.css"><link rel="stylesheet" href="assets/style/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet" href="assets/recaptcha.css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
 
 
@@ -58,7 +60,7 @@ $bdd = null
             <div class="menu-logo">
                 <div class="navbar-brand">
 
-                    <span class="navbar-caption-wrap"><a href="index.php" class="brand-link mbr-black display-5">
+                    <span class="navbar-caption-wrap"><a href="index.html" class="brand-link mbr-black display-5">
                             L'agence PHP</a></span>
                 </div>
             </div>
@@ -100,7 +102,7 @@ $bdd = null
                             Accueil</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link link mbr-black text-white dropdown-toggle display-4" href="https://localhost.com" data-toggle="dropdown-submenu" aria-expanded="true">Voyages</a>
+                        <a class="nav-link link mbr-black text-white dropdown-toggle display-4" href="#" data-toggle="dropdown-submenu" aria-expanded="true">Voyages</a>
                         <div class="dropdown-menu">
                             <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
                             <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
@@ -141,7 +143,7 @@ $bdd = null
         <div class="row justify-content-center">
             <div class="media-container-column col-lg-12 col-md-10 col-sm-12 align-center" data-form-type="formoid">
                 <!---Formbuilder Form--->
-                <form action="https://localhost.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Site Form"><input type="hidden" name="email" data-form-email="true" value="SW0tOrp1DNSIsi3rAG5QvSSjnDt2Tb2JKQjX4O90l4WN03t+hz8eFhb1m444Ib+b1Vqa/ugJBtGC7/LzVQg9FHNjfakyJv4Jc7DWL0TaQWd5I1SMR/0dAUSg9hEqn49y.6wSXtGluM0lvkr9kLbP+bHorkQDPqi6uVtdK3mduOez385NUSgAibiWqPKvjkdmlfFAu9kLaUfcxxtCriMK7gyxB+u1/QJRS+YvC4kvaBwzixn6LhK3n0oydrERrRfvq">
+                <form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Mobirise Form"><input type="hidden" name="email" data-form-email="true" value="RsSQ45tMTpE0ZBphARdsPM8j6sPaKG4lBPLje8wiTy8p7qdWOojIBTBTLaiXEN5OVRGD812clqA5e87+E2GEtesOcb9Rdb35xg2qKG6FUBK27CXIYgO0zsxWTx1ZcUVL.um4mzbog0e97xMId2HQ2GhOcqAQuq7mfZrdbaaYhhkITVRQpJquKZc3eOoP0cGQTmW/CVlh7id1uKcsAlvnJjal8jbHJqOZoOSmUvPDbnGvFWPtWqAQ1Zy0fRpO9Q5Ue">
                     <div class="row">
                         <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Recherche en cours...</div>
                         <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
@@ -186,16 +188,16 @@ $bdd = null
     <div class="container">
         <h2 class="mbr-section-title pb-1 mbr-normal mbr-fonts-style align-left display-2">Nos voyages disponibles</h2>
         <div class="row row-content justify-content-center">
-            <?php  foreach ($tablecircuit as $row) {?>
             <div class="card p-3 col-12 col-md-6 col-lg-4">
+
 
                 <div class="card-wrapper">
                     <div class="card-img">
                         <img src="assets/images/guestblogger-newyorknl-north-america-usa-newyork-times-square-yellow-cab-medium-696x464.jpg" title="" alt="">
                         <div class="card-box">
-                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7"><?php echo $row['PrixInscription']?>€ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">€4200,00 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 &nbsp; &nbsp;
-                                <br><?php echo $row['Durée']?></h4>
+                                <br>15 jours</h4>
 
                             <div class="mbr-iconfont mbr-iconfont-social icobig mbri-star" media-simple="true"></div>
 
@@ -203,7 +205,7 @@ $bdd = null
                     </div>
 
                     <div class="text-box">
-                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7"><?php echo $row['Descriptif']?></h4>
+                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7">Summer Deplacement</h4>
                         <div class="ico-box">
                             <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
                             <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">New York, &nbsp;Willis Avenue</p>
@@ -212,17 +214,18 @@ $bdd = null
                     <div class="p-box">
                         <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">3 étapes<br>
                         </p>
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">3 lieux à visiter&nbsp;<br>&nbsp;
                             <br>
                         </p>
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4"><?php echo $row['VilleDepart'] ?> - <?php echo $row['VilleArrivee'] ?><br>
-                                              <br>
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">Lille - NewYork&nbsp;<br>
+                            <br>
                         </p>
                     </div>
 
                     <div class="ico-wrap">
                         <div class="ico-box">
                             <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-user"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Encore <?php echo $row['NbrPlaceDispo']?> places disponibles</php>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Encore 3 places disponibles</p>
                         </div>
 
                         <div class="ico-box">
@@ -234,9 +237,114 @@ $bdd = null
 
 
                 </div>
-
             </div>
-            <?php }; ?>
+
+
+            <div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-wrapper">
+                    <div class="card-img">
+                        <img src="assets/images/02.jpg" title="" alt="">
+                        <div class="card-box">
+                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">$330,000 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp;
+                                <br>$568 / sq m</h4>
+
+                            <div class="mbr-iconfont mbr-iconfont-social icobig mbri-star" media-simple="true"></div>
+
+                        </div>
+                    </div>
+
+                    <div class="text-box">
+                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7">Hi-Tech Apartment&nbsp;</h4>
+                        <div class="ico-box">
+                            <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Las Vegas, &nbsp;32 Street</p>
+                        </div>
+                    </div>
+                    <div class="p-box">
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">600 sq m
+                            <br>1 Bathrooms
+                            <br>
+                        </p>
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">Rooms 2
+                            <br>&nbsp;
+                            <br>
+                        </p>
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">1&nbsp;Bedrooms
+                            <br>
+                            <br>
+                        </p>
+                    </div>
+
+                    <div class="ico-wrap">
+                        <div class="ico-box">
+                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-user"></span>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Jane Smith</p>
+                        </div>
+
+                        <div class="ico-box">
+                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-calendar"></span>
+                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4">13.09.18</p>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-wrapper">
+                    <div class="card-img">
+                        <img src="assets/images/03.jpg" title="" alt="">
+                        <div class="card-box">
+                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">$380,000 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp;
+                                <br>$654 / sq m</h4>
+
+                            <div class="mbr-iconfont mbr-iconfont-social icobig mbri-star" media-simple="true"></div>
+
+                        </div>
+                    </div>
+
+                    <div class="text-box">
+                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7">Creative Apartment&nbsp;</h4>
+                        <div class="ico-box">
+                            <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">London, &nbsp;Summer Avenue</p>
+                        </div>
+                    </div>
+                    <div class="p-box">
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">800 sq m
+                            <br>1 Bathrooms
+                            <br>
+                        </p>
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">Rooms 3
+                            <br>&nbsp;
+                            <br>
+                        </p>
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">2 Bedrooms
+                            <br>
+                        </p>
+                    </div>
+
+                    <div class="ico-wrap">
+                        <div class="ico-box">
+                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-user"></span>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Ann Sterling</p>
+                        </div>
+
+                        <div class="ico-box">
+                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-calendar"></span>
+                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4">08.04.18</p>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
 
         </div>
     </div>
@@ -372,7 +480,7 @@ $bdd = null
                     Nous contacter</h2>
                 <div data-form-type="formoid">
                     <!---Formbuilder Form--->
-                    <form action="https://localhost.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Site Form"><input type="hidden" name="email" data-form-email="true" value="MA7jp7UAg0xNBH3WalRiduNbrTNQk/E5ZZjpJXoYw32tC0mdXm/MafE0qnPWzdSdXDSa9WmpRoHXLNr+BbShmIKIamablx+qrjQMKmjg2fYyT7L92RjZrCIywY9YO+hS.SMhWwI0HuNF5n8YGbGyH5C3y6shgCl2zHzwDjLG4k6wBzMuyq1Sz4s8kudWrzwaC5AkDXHs7+vS11fbcSI1HjQKDbK8RaF9YSCGjoU21w2m1R7/iY29r8A2KX1Ke4tVf">
+                    <form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Mobirise Form"><input type="hidden" name="email" data-form-email="true" value="p0t4zueBpyntbkWuU0nsBl0HkQVHprZ0trfOG5/25I9FDpDjAqA+SP4oM1/iex1OjGQ2hglJfUgcrEAeANpp2G1l5gb2eoKHTlT4srY9+jGO3li297BRCUbDf1czMODF.7uxmZ1j3Rr6H05LyPRot+IRr4Whm2vrfCVg8o5UA7d8xysbyTYExS20JldpJVu/V8zrWDmFQ4X2EVPYEIt1hGVhKsDZLrNqX4nHaHcmgVob4oVPw5vyajyIBxD8rby3M">
                         <div class="row">
                             <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Merci de nous avoir contacté !</div>
                             <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
@@ -413,7 +521,7 @@ $bdd = null
   <script src="assets/formstyler/jquery.formstyler.min.js"></script>
   <script src="assets/viewportchecker/jquery.viewportchecker.js"></script>
   <script src="assets/theme/js/script.js"></script>
-  <script src="assets/formoid/formoid.min.js"></script>
+  <script src="assets/formoid.min.js"></script>
 
 
 </body>
