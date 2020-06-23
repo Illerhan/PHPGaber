@@ -1,0 +1,26 @@
+--3
+select c.IdCircuit, Descriptif, VilleDepart, VilleArrivee, count(e.IdCircuit)
+from circuit c, etape e
+where c.IdCircuit=7 and e.IdCircuit=7;
+
+--4
+delete
+from lieuavisiter
+where NomLieu not in(
+  select nomlieu
+  from etape
+);
+
+--5
+select sum(PrixVisite)+PrixInscription
+from circuit c, lieuavisiter l, etape e
+where c.IdCircuit=e.IdCircuit and e.nomlieu=l.NomLieu and e.ville=l.ville and e.pays=l.Pays and c.IdCircuit=7;
+
+--6 !!! il manque les palce disponible voir question 6 !!!
+select distinct c.IdCircuit, sum(PrixVisite)+PrixInscription as prix, DateDepart, c.Durée
+from circuit c, lieuavisiter l, etape e
+where c.IdCircuit=e.IdCircuit and e.nomlieu=l.NomLieu and e.ville=l.ville and e.pays=l.Pays and DateDepart > '2000-04-02' and c.Durée < '100:00:00'
+group by c.IdCircuit
+having prix<900;
+
+--7

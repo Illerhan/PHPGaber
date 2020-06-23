@@ -98,7 +98,9 @@ INSERT INTO `client` (`IdClient`, `Nom`, `Prenom`, `DateNaissance`) VALUES
 INSERT INTO `etape` (`IdCircuit`, `Ordre`, `DateEtape`, `Durée`, `NomLieu`, `Ville`, `Pays`) VALUES
 (7, '1', '2020-10-02', '05:10:00', 'Tour Eiffel', 'Paris', 'France'),
 (7, '2', '2020-10-03', '03:10:00', 'Colisée', 'Rome', 'Italie'),
-(7, '3', '2020-10-05', '06:00:00', 'Opera', 'Sydney', 'Australie');
+(7, '3', '2020-10-05', '06:00:00', 'Opera', 'Sydney', 'Australie')
+(8, '1', '2020-10-05', '06:00:00', 'Opera', 'Sydney', 'Australie');
+
 
 
 INSERT INTO `lieuavisiter` (`NomLieu`, `Ville`, `Pays`, `Descriptif`, `PrixVisite`) VALUES
