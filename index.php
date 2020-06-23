@@ -4,7 +4,7 @@
 $bdd = new PDO('mysql:host=localhost:3308; dbname=pbdo', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 
 $circuit = $bdd->query('SELECT * FROM circuit ');
-$client = $bdd->query('SELECT * FROM circuit');
+$client = $bdd->query('SELECT * FROM client');
 
 $tablecircuit = array();
 while ($row = $circuit->fetch()) {
@@ -190,14 +190,14 @@ $bdd = null
         <div class="row row-content justify-content-center">
             <div class="card p-3 col-12 col-md-6 col-lg-4">
 
-
+                <?php  foreach ($tablecircuit as $row) {?>
                 <div class="card-wrapper">
                     <div class="card-img">
                         <img src="assets/images/guestblogger-newyorknl-north-america-usa-newyork-times-square-yellow-cab-medium-696x464.jpg" title="" alt="">
                         <div class="card-box">
-                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">€4200,00 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7"><?php echo $row['PrixInscription'] ?> €&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 &nbsp; &nbsp;
-                                <br>15 jours</h4>
+                                <br><?php echo $row['Durée']?></h4>
 
                             <div class="mbr-iconfont mbr-iconfont-social icobig mbri-star" media-simple="true"></div>
 
@@ -205,10 +205,10 @@ $bdd = null
                     </div>
 
                     <div class="text-box">
-                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7">Summer Deplacement</h4>
+                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7"><?php echo $row['nomCircuit'] ?></h4>
                         <div class="ico-box">
                             <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">New York, &nbsp;Willis Avenue</p>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $row['VilleArrivee'] ?></p>
                         </div>
                     </div>
                     <div class="p-box">
@@ -225,18 +225,19 @@ $bdd = null
                     <div class="ico-wrap">
                         <div class="ico-box">
                             <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-user"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Encore 3 places disponibles</p>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $row['NbrPlaceDispo'] ?> place(s) restantes</p>
                         </div>
 
                         <div class="ico-box">
                             <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-calendar"></span>
-                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4">23.10.20</p>
+                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4"><?php echo $row['DateDepart'] ?></p>
                         </div>
 
                     </div>
 
 
                 </div>
+                <?php }; ?>
             </div>
 
 
