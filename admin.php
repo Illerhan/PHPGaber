@@ -116,6 +116,30 @@
 
     <div class="container">
         <h2 class="mbr-fonts-style mbr-section-title align-center display-2">Administration</h2>
+        <?php
+
+        require 'Circuit.php';
+
+        $camphin = new Circuit("Lille");
+        $orchie = new Circuit("POPOPO");
+        $cysoing = new Circuit("LOL");
+
+        $camphin->VilleDepart = "Camphin";
+
+        $orchie->afficher("MOMO");
+
+        $cysoing->VilleDepart = "Cysoing";
+        $cysoing->mort(); //retourne True
+
+        $camphin->attaque($cysoing);
+
+        var_dump($camphin);
+        var_dump($cysoing);
+
+
+
+
+        ?>
         <h3 class="mbr-fonts-style mbr-section-subtitle align-center display-5">Gérer les circuits et les lieux</h3>
         <div class="row justify-content-center pt-4">
             <div class="col-md-10 col-lg-8 content-block">
