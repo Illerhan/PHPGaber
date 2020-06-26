@@ -5,19 +5,6 @@ require 'circuit.class.php';
 
 $db=databaseconnexion();
 
-$request = $db->query('SELECT idCircuit, nomCircuit, Descriptif, VilleDepart FROM circuit');
-
-while ($donnees = $request->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera récupérée et placée dans un array.
-{
-  // On passe les données (stockées dans un tableau) concernant le personnage au constructeur de la classe.
-  // On admet que le constructeur de la classe appelle chaque setter pour assigner les valeurs qu'on lui a données aux attributs correspondants.
-
-  var_dump($donnees);
-  $circuit = new Circuit($donnees);
-
-
-  echo $circuit->idcircuit(), ' 2 ', $circuit->nomcircuit(), ' a ', $circuit->descriptif(), ' de force, ', $circuit->villedepart();
-}
 ?>
 
 <html>
@@ -189,9 +176,24 @@ while ($donnees = $request->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera réc
     <div class="container">
         <h2 class="mbr-section-title pb-1 mbr-normal mbr-fonts-style align-left display-2">Nos voyages disponibles</h2>
         <div class="row row-content justify-content-center">
+
+
+          <?php
+
+          $request = $db->query('SELECT * FROM circuit');
+
+          while ($donnees = $request->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera récupérée et placée dans un array.
+          {
+            // On passe les données (stockées dans un tableau) concernant le personnage au constructeur de la classe.
+            // On admet que le constructeur de la classe appelle chaque setter pour assigner les valeurs qu'on lui a données aux attributs correspondants.
+
+            $circuit = new Circuit($donnees);
+
+          ?>
             <div class="card p-3 col-12 col-md-6 col-lg-4">
 
                 <div class="card-wrapper">
+                  <a href="circuit.php?idcircuit=<?php echo $circuit->getidcircuit()?>">
                     <div class="card-img">
                         <img src="assets/images/guestblogger-newyorknl-north-america-usa-newyork-times-square-yellow-cab-medium-696x464.jpg" title="" alt="">
                         <div class="card-box">
@@ -203,12 +205,13 @@ while ($donnees = $request->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera réc
 
                         </div>
                     </div>
+                    <a/>
 
                     <div class="text-box">
-                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7">CIRCU</h4>
+                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7"><?php echo $circuit->getnomcircuit() ?></h4>
                         <div class="ico-box">
                             <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">ARR</p>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $circuit->getvilledepart() ?></p>
                         </div>
                     </div>
                     <div class="p-box">
@@ -217,7 +220,7 @@ while ($donnees = $request->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera réc
                         <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">3 lieux à visiter&nbsp;<br>&nbsp;
                             <br>
                         </p>
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">Lille - NewYork&nbsp;<br>
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4"><?php echo $circuit->getvilledepart() ?> - <?php echo $circuit->getvillearrivee() ?>&nbsp;<br>
                             <br>
                         </p>
                     </div>
@@ -230,7 +233,7 @@ while ($donnees = $request->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera réc
 
                         <div class="ico-box">
                             <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-calendar"></span>
-                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4">DATE</p>
+                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4"><?php echo $circuit->getdatedepart() ?></p>
                         </div>
 
                     </div>
@@ -239,113 +242,11 @@ while ($donnees = $request->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera réc
                 </div>
             </div>
 
+            <?php
 
+            }
 
-
-            <div class="card p-3 col-12 col-md-6 col-lg-4">
-                <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="assets/images/02.jpg" title="" alt="">
-                        <div class="card-box">
-                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">$330,000 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                &nbsp; &nbsp;
-                                <br>$568 / sq m</h4>
-
-                            <div class="mbr-iconfont mbr-iconfont-social icobig mbri-star" media-simple="true"></div>
-
-                        </div>
-                    </div>
-
-                    <div class="text-box">
-                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7">Hi-Tech Apartment&nbsp;</h4>
-                        <div class="ico-box">
-                            <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Las Vegas, &nbsp;32 Street</p>
-                        </div>
-                    </div>
-                    <div class="p-box">
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">600 sq m
-                            <br>1 Bathrooms
-                            <br>
-                        </p>
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">Rooms 2
-                            <br>&nbsp;
-                            <br>
-                        </p>
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">1&nbsp;Bedrooms
-                            <br>
-                            <br>
-                        </p>
-                    </div>
-
-                    <div class="ico-wrap">
-                        <div class="ico-box">
-                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-user"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Jane Smith</p>
-                        </div>
-
-                        <div class="ico-box">
-                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-calendar"></span>
-                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4">13.09.18</p>
-                        </div>
-
-                    </div>
-
-
-                </div>
-            </div>
-
-            <div class="card p-3 col-12 col-md-6 col-lg-4">
-                <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="assets/images/03.jpg" title="" alt="">
-                        <div class="card-box">
-                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">$380,000 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                &nbsp; &nbsp;
-                                <br>$654 / sq m</h4>
-
-                            <div class="mbr-iconfont mbr-iconfont-social icobig mbri-star" media-simple="true"></div>
-
-                        </div>
-                    </div>
-
-                    <div class="text-box">
-                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7">Creative Apartment&nbsp;</h4>
-                        <div class="ico-box">
-                            <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">London, &nbsp;Summer Avenue</p>
-                        </div>
-                    </div>
-                    <div class="p-box">
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">800 sq m
-                            <br>1 Bathrooms
-                            <br>
-                        </p>
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">Rooms 3
-                            <br>&nbsp;
-                            <br>
-                        </p>
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">2 Bedrooms
-                            <br>
-                        </p>
-                    </div>
-
-                    <div class="ico-wrap">
-                        <div class="ico-box">
-                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-user"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Ann Sterling</p>
-                        </div>
-
-                        <div class="ico-box">
-                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-calendar"></span>
-                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4">08.04.18</p>
-                        </div>
-
-                    </div>
-
-
-                </div>
-            </div>
+            ?>
 
 
         </div>
