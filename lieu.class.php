@@ -9,20 +9,57 @@
 
 
     public function __construct($tab) {
-        $this->nom = $tab[0];
-        $this->ville = $tab[1];
-        $this->pays = $tab[2];
-        $this->description = $tab[3];
-        $this->prix = $tab[4];
-        echo 'l\'objet lieu est bien crée <br>';
+        $this->nom = $tab["NomLieu"];
+        $this->ville = $tab["Ville"];
+        $this->pays = $tab["Pays"];
+        $this->description = $tab["Descriptif"];
+        $this->prix = $tab["PrixVisite"];
+    }
+//------------------------------------------
+    public function getnom(){
+      return $this->nom;
     }
 
-    public function getnom(){
-      echo $this->nom;
+    public function setnom(){
+
     }
+
+//--------------------------------------------
+    public function getville(){
+      return $this->ville;
+    }
+
+    public function setville(){
+
+    }
+
+//--------------------------------------------
+    public function getpays(){
+      return $this->pays;
+    }
+
+    public function setpays(){
+
+    }
+
+//--------------------------------------------
+    public function getdescription(){
+      return $this->description;
+    }
+
+    public function setdesctiption(){
+
+    }
+
+//--------------------------------------------
+    public function getprix(){
+      return $this->prix;
+    }
+
+    public function setprix(){
+
+    }
+
 }
-$test = array(1, 55, 7,5,3);
-print_r($test) ;
-  $lille=new lieu($test);
-  $lille->test();
+
 ?>

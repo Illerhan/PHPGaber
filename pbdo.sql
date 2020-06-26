@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS `client` (
   `Nom` varchar(50) DEFAULT NULL,
   `Prenom` varchar(50) DEFAULT NULL,
   `DateNaissance` date DEFAULT NULL,
+  `Email` varchar(255) DEFAULT NULL,
+  `Password` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`IdClient`)
 );
 
