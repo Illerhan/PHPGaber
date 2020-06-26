@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <?php
+require 'database/BDConnection.php';
+require 'circuit.class.php';
 
-$bdd = new PDO('mysql:host=localhost:3308; dbname=pbdo', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+$db=databaseconnexion();
 
-$circuit = $bdd->query('SELECT * FROM circuit ');
-$client = $bdd->query('SELECT * FROM client');
+$request = $db->query('SELECT idCircuit, nomCircuit, Descriptif, VilleDepart FROM circuit');
 
-$tablecircuit = array();
-while ($row = $circuit->fetch()) {
-    array_push($tablecircuit, $row);
+while ($donnees = $request->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera récupérée et placée dans un array.
+{
+  // On passe les données (stockées dans un tableau) concernant le personnage au constructeur de la classe.
+  // On admet que le constructeur de la classe appelle chaque setter pour assigner les valeurs qu'on lui a données aux attributs correspondants.
+
+  var_dump($donnees);
+  $circuit = new Circuit($donnees);
+
+
+  echo $circuit->idcircuit(), ' 2 ', $circuit->nomcircuit(), ' a ', $circuit->descriptif(), ' de force, ', $circuit->villedepart();
 }
-$tableclient = array();
-while ($row = $client->fetch()) {
-    array_push($tableclient, $row);
-}
-
-$circuit->closeCursor();
-
-$bdd = null
 ?>
+
 <html>
 <head>
 
@@ -238,55 +239,7 @@ $bdd = null
                 </div>
             </div>
 
-            <div class="card p-3 col-12 col-md-6 col-lg-4">
 
-                <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="assets/images/guestblogger-newyorknl-north-america-usa-newyork-times-square-yellow-cab-medium-696x464.jpg" title="" alt="">
-                        <div class="card-box">
-                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">12 €&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                &nbsp; &nbsp;
-                                <br>DUREE</h4>
-
-                            <div class="mbr-iconfont mbr-iconfont-social icobig mbri-star" media-simple="true"></div>
-
-                        </div>
-                    </div>
-
-                    <div class="text-box">
-                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7">CIRCU</h4>
-                        <div class="ico-box">
-                            <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">ARR</p>
-                        </div>
-                    </div>
-                    <div class="p-box">
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">3 étapes<br>
-                        </p>
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">3 lieux à visiter&nbsp;<br>&nbsp;
-                            <br>
-                        </p>
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">Lille - NewYork&nbsp;<br>
-                            <br>
-                        </p>
-                    </div>
-
-                    <div class="ico-wrap">
-                        <div class="ico-box">
-                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-user"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">10 place(s) restantes</p>
-                        </div>
-
-                        <div class="ico-box">
-                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-calendar"></span>
-                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4">DATE</p>
-                        </div>
-
-                    </div>
-
-
-                </div>
-            </div>
 
 
             <div class="card p-3 col-12 col-md-6 col-lg-4">

@@ -17,3 +17,4 @@ while ($donnees = $request->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera réc
 
   echo $circuit->idcircuit(), ' 2 ', $circuit->nomcircuit(), ' a ', $circuit->descriptif(), ' de force, ', $circuit->villedepart();
 }
+?>
