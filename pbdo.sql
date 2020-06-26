@@ -14,9 +14,10 @@ CREATE TABLE IF NOT EXISTS `circuit` (
   `VilleDepart` varchar(50) DEFAULT NULL,
   `PaysDepart` varchar(50) DEFAULT NULL,
   `VilleArrivee` varchar(50) DEFAULT NULL,
+  `PaysArrivee` varchar(50) DEFAULT NULL,
   `DateDepart` date DEFAULT NULL,
   `NbrPlaceDispo` int(11) DEFAULT NULL,
-  `Durée` time DEFAULT NULL,
+  `Duree` time DEFAULT NULL,
   `PrixInscription` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`IdCircuit`)
 );
@@ -36,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `etape` (
   `IdCircuit` int(11) NOT NULL,
   `Ordre` varchar(50) NOT NULL,
   `DateEtape` date DEFAULT NULL,
-  `Durée` time DEFAULT NULL,
+  `Duree` time DEFAULT NULL,
   `NomLieu` varchar(50) NOT NULL,
   `Ville` varchar(50) NOT NULL,
   `Pays` varchar(50) NOT NULL,
@@ -72,7 +73,8 @@ CREATE TABLE IF NOT EXISTS `reserver` (
   `IdReservation` int(11) NOT NULL,
   `IdClient` int(11) NOT NULL,
   PRIMARY KEY (`IdReservation`,`IdClient`),
-  FOREIGN KEY (IdClient) REFERENCES client (IdClient)
+  FOREIGN KEY (IdClient) REFERENCES client (IdClient),
+  FOREIGN KEY (IdReservation) REFERENCES reservation (IdReservation)
 );
 
 
@@ -84,7 +86,7 @@ INSERT INTO `beneficiaire` (`IdBene`, `NomBene`, `PrenomBene`, `DateNaissanceBen
 (4, 'Pillo', 'Stephane', '1990-02-13');
 
 
-INSERT INTO `circuit` (`IdCircuit`, `Descriptif`, `VilleDepart`, `PaysDepart`, `VilleArrivee`, `DateDepart`, `NbrPlaceDispo`, `Durée`, `PrixInscription`) VALUES
+INSERT INTO `circuit` (`IdCircuit`, `Descriptif`, `VilleDepart`, `PaysDepart`, `VilleArrivee`, `DateDepart`, `NbrPlaceDispo`, `Duree`, `PrixInscription`) VALUES
 (7, 'Voyage a traver les océans', 'Paris', 'France', 'Sydney', '2020-10-03', 10, '96:00:00', '121'),
 (8, 'Voyage a traver les océans', 'Paris', 'France', 'Sydney', '2020-10-03', 10, '96:00:00', '121');
 
@@ -95,10 +97,10 @@ INSERT INTO `client` (`IdClient`, `Nom`, `Prenom`, `DateNaissance`) VALUES
 (3, 'Dupont', 'Martin', '1975-03-29');
 
 
-INSERT INTO `etape` (`IdCircuit`, `Ordre`, `DateEtape`, `Durée`, `NomLieu`, `Ville`, `Pays`) VALUES
+INSERT INTO `etape` (`IdCircuit`, `Ordre`, `DateEtape`, `Duree`, `NomLieu`, `Ville`, `Pays`) VALUES
 (7, '1', '2020-10-02', '05:10:00', 'Tour Eiffel', 'Paris', 'France'),
 (7, '2', '2020-10-03', '03:10:00', 'Colisée', 'Rome', 'Italie'),
-(7, '3', '2020-10-05', '06:00:00', 'Opera', 'Sydney', 'Australie')
+(7, '3', '2020-10-05', '06:00:00', 'Opera', 'Sydney', 'Australie'),
 (8, '1', '2020-10-05', '06:00:00', 'Opera', 'Sydney', 'Australie');
 
 
