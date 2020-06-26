@@ -190,14 +190,13 @@ $bdd = null
         <div class="row row-content justify-content-center">
             <div class="card p-3 col-12 col-md-6 col-lg-4">
 
-                <?php  foreach ($tablecircuit as $row) {?>
                 <div class="card-wrapper">
                     <div class="card-img">
                         <img src="assets/images/guestblogger-newyorknl-north-america-usa-newyork-times-square-yellow-cab-medium-696x464.jpg" title="" alt="">
                         <div class="card-box">
-                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7"><?php echo $row['PrixInscription'] ?> €&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">12 €&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 &nbsp; &nbsp;
-                                <br><?php echo $row['Durée']?></h4>
+                                <br>DUREE</h4>
 
                             <div class="mbr-iconfont mbr-iconfont-social icobig mbri-star" media-simple="true"></div>
 
@@ -205,10 +204,10 @@ $bdd = null
                     </div>
 
                     <div class="text-box">
-                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7"><?php echo $row['nomCircuit'] ?></h4>
+                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7">CIRCU</h4>
                         <div class="ico-box">
                             <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $row['VilleArrivee'] ?></p>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">ARR</p>
                         </div>
                     </div>
                     <div class="p-box">
@@ -225,19 +224,68 @@ $bdd = null
                     <div class="ico-wrap">
                         <div class="ico-box">
                             <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-user"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $row['NbrPlaceDispo'] ?> place(s) restantes</p>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">10 place(s) restantes</p>
                         </div>
 
                         <div class="ico-box">
                             <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-calendar"></span>
-                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4"><?php echo $row['DateDepart'] ?></p>
+                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4">DATE</p>
                         </div>
 
                     </div>
 
 
                 </div>
-                <?php }; ?>
+            </div>
+
+            <div class="card p-3 col-12 col-md-6 col-lg-4">
+
+                <div class="card-wrapper">
+                    <div class="card-img">
+                        <img src="assets/images/guestblogger-newyorknl-north-america-usa-newyork-times-square-yellow-cab-medium-696x464.jpg" title="" alt="">
+                        <div class="card-box">
+                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">12 €&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp;
+                                <br>DUREE</h4>
+
+                            <div class="mbr-iconfont mbr-iconfont-social icobig mbri-star" media-simple="true"></div>
+
+                        </div>
+                    </div>
+
+                    <div class="text-box">
+                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7">CIRCU</h4>
+                        <div class="ico-box">
+                            <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">ARR</p>
+                        </div>
+                    </div>
+                    <div class="p-box">
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">3 étapes<br>
+                        </p>
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">3 lieux à visiter&nbsp;<br>&nbsp;
+                            <br>
+                        </p>
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">Lille - NewYork&nbsp;<br>
+                            <br>
+                        </p>
+                    </div>
+
+                    <div class="ico-wrap">
+                        <div class="ico-box">
+                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-user"></span>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">10 place(s) restantes</p>
+                        </div>
+
+                        <div class="ico-box">
+                            <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-calendar"></span>
+                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4">DATE</p>
+                        </div>
+
+                    </div>
+
+
+                </div>
             </div>
 
 
