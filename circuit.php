@@ -3,7 +3,7 @@
 require 'database/BDConnection.php';
 require 'circuit.class.php';
 
-$db=databaseconnexion();
+$bdd=databaseconnexion();
 
 ?>
 
@@ -133,14 +133,12 @@ $db=databaseconnexion();
 
           <?php
 
-          $request = $db->query('SELECT * FROM circuit WHERE IdCircuit="'.$_GET['idcircuit'].'"');
+          $sql = 'SELECT * FROM circuit WHERE IdCircuit="'.$_GET['idcircuit'].'"';
+          $req = mysqli_query($bdd, $sql);
 
-          while ($donnees = $request->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera récupérée et placée dans un array.
-          {
-            // On passe les données (stockées dans un tableau) concernant le personnage au constructeur de la classe.
-            // On admet que le constructeur de la classe appelle chaque setter pour assigner les valeurs qu'on lui a données aux attributs correspondants.
-
-            $circuit = new Circuit($donnees);
+          if (!empty($req)) {
+            while($donnees = mysqli_fetch_array($req)){
+              $circuit = new Circuit($donnees);
 
           ?>
             <div class="card py-4 col-md-12">
@@ -188,7 +186,7 @@ $db=databaseconnexion();
             <?php
 
             }
-
+          }
             ?>
 
 

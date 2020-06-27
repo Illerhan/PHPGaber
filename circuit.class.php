@@ -21,7 +21,7 @@ Class Circuit{
       $this->_VilleDepart = $tab["VilleDepart"];
       $this->_PaysDepart = $tab["PaysDepart"];
       $this->_VilleArrivee = $tab["VilleArrivee"];
-      $this->_PaysArrive = $tab["PaysArrive"];
+      $this->_PaysArrive = $tab["PaysArrivee"];
       $this->_DateDepart = $tab["DateDepart"];
       $this->_NbrPlaceDispo = $tab["NbrPlaceDispo"];
       $this->_Duree = $tab["Duree"];

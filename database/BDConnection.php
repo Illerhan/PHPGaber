@@ -1,8 +1,9 @@
 <?php
 
 function databaseconnexion(){
-  $db = new PDO('mysql:host=localhost:3308; dbname=pbdo', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-  return $db;
+  $bdd = mysqli_connect('localhost:3308','root','','pbdo');
+  mysqli_set_charset($bdd, "utf8");
+  return $bdd;
 }
 
 ?>
