@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php
 require 'database/BDConnection.php';
-require 'circuit.class.php';
+require 'class/circuit.class.php';
+require 'class/client.class.php';
 
 $bdd=databaseconnexion();
 
@@ -29,16 +30,12 @@ $bdd=databaseconnexion();
   <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
 
-
 </head>
 <body>
 
 <section id='top-1'></section>
 
-
   <section class="extMenu6 menu cid-rXy0Arh5ls" once="menu" id="extMenu3-a">
-
-
 
     <nav class="navbar navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
         <div class="menu-content-top">
@@ -65,18 +62,7 @@ $bdd=databaseconnexion();
                     </div>
                 </div>
 
-
-
-
-
-                <div class="navbar-buttons mbr-section-btn"><a class="btn btn-lg btn-primary-outline display-4" href="index.html#extForm21-1">
-
-                        Nous contacter</a></div>
-
-
-
-
-
+                <div class="navbar-buttons mbr-section-btn"><a class="btn btn-lg btn-primary-outline display-4" href="index.html#extForm21-1"> Nous contacter</a></div>
 
             </div>
         </div>
@@ -133,7 +119,7 @@ $bdd=databaseconnexion();
 
           <?php
 
-          $sql = 'SELECT * FROM circuit WHERE IdCircuit="'.$_GET['idcircuit'].'"';
+          $sql = 'SELECT c.IdCircuit, Descriptif, VilleDepart, PaysDepart, VilleArrivee, PaysArrivee, DateDepart, NbrPlaceDispo, c.Duree, PrixInscription, count(e.IdCircuit) as NbrEtape from circuit c, etape e where c.IdCircuit= e.IdCircuit and c.IdCircuit="'.$_GET['idcircuit'].'"';
           $req = mysqli_query($bdd, $sql);
 
           if (!empty($req)) {
@@ -141,6 +127,7 @@ $bdd=databaseconnexion();
               $circuit = new Circuit($donnees);
 
           ?>
+
             <div class="card py-4 col-md-12">
                 <div class="card-wrapper">
                     <div class="card-img">
@@ -148,7 +135,7 @@ $bdd=databaseconnexion();
                     </div>
                     <div class="card-box">
                         <div class="text-box">
-                            <h4 class="card-title mbr-fonts-style mbr-normal display-5"><?php echo $circuit->getnomcircuit() ?></h4>
+                            <h4 class="card-title mbr-fonts-style mbr-normal display-5"><?php echo 'Circuit N° : '.$circuit->getIdcircuit() ?></h4>
                             <p class="mbr-text mbr-fonts-style status mbr-normal display-4">
                                 <?php echo $circuit->getvilledepart() .' '. $circuit->getpaysdepart() ?> - <?php echo $circuit->getvillearrivee() .' '. $circuit->getpaysarrive() ?></p>
 
@@ -175,7 +162,23 @@ $bdd=databaseconnexion();
                                 <span class="px-2 mbr-iconfont mbr-iconfont-social mbri-cash"></span>
                                 <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $circuit->getprixinscription() ?></p>
                             </div>
+                            <?php
+                              $sql = 'SELECT * FROM client WHERE IdClient=1';
+                              $req = mysqli_query($bdd, $sql);
+                              $donnees = mysqli_fetch_array($req);
+                              $client = new client($donnees);
 
+                              if (!empty($_POST["reservation"])) {
+                                $client->reserver($circuit->getIdcircuit());
+                                ?>
+                            <meta http-equiv="refresh" content="0.1;url=reservation.php" />
+                            <?php
+                              }
+                              ?>
+
+                            <form  method="post">
+                              <input name="reservation" type="submit" value="Réservation">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -184,17 +187,9 @@ $bdd=databaseconnexion();
             </div>
 
             <?php
-
             }
           }
             ?>
-
-
-
-
-
-
-
 
         </div>
     </div>
@@ -203,9 +198,6 @@ $bdd=databaseconnexion();
 </section>
 
 <section class="features7 cid-s32A9hTOsg" id="features07-b">
-
-
-
 
     <div class="container">
 
@@ -238,7 +230,7 @@ $bdd=databaseconnexion();
                             </div>
 
                             <div class="mbr-section-btn">
-                                <a href="#" class="btn btn-primary-outline display-4">
+                                <a onclick="" href="#" class="btn btn-primary-outline display-4">
                                     Details</a>
                             </div>
 
@@ -270,17 +262,13 @@ $bdd=databaseconnexion();
                                 <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4">23.10.18</p>
                             </div>
 
+
+
                         </div>
                     </div>
 
                 </div>
             </div>
-
-
-
-
-
-
 
         </div>
     </div>

@@ -3,7 +3,6 @@
 Class Circuit{
 
     public $_idCircuit;
-    public $_nomCircuit;
     public $_Descriptif;
     public $_VilleDepart;
     public $_PaysDepart;
@@ -13,10 +12,10 @@ Class Circuit{
     public $_NbrPlaceDispo;
     public $_Duree;
     public $_PrixInscription;
+    public $_nbretape;
 
     public function __construct($tab){
       $this->_idCircuit = $tab["IdCircuit"];
-      $this->_nomCircuit = $tab["nomCircuit"];
       $this->_Descriptif = $tab["Descriptif"];
       $this->_VilleDepart = $tab["VilleDepart"];
       $this->_PaysDepart = $tab["PaysDepart"];
@@ -26,16 +25,12 @@ Class Circuit{
       $this->_NbrPlaceDispo = $tab["NbrPlaceDispo"];
       $this->_Duree = $tab["Duree"];
       $this->_PrixInscription= $tab["PrixInscription"];
+      $this->_nbretape = $tab["NbrEtape"];
     }
 
     //----------------------------------
     public function getidcircuit(){
       return $this->_idCircuit;
-    }
-
-    //----------------------------------
-    public function getnomcircuit(){
-      return $this->_nomCircuit;
     }
 
     //----------------------------------
@@ -82,7 +77,11 @@ Class Circuit{
     public function getprixinscription(){
       return $this->_PrixInscription;
     }
-
+    
+    //----------------------------------
+    public function getnbretape(){
+      return $this->_nbretape;
+    }
 }
 
 ?>

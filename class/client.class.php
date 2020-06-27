@@ -1,5 +1,4 @@
 <?php
-require 'database/BDConnection.php';
   class client {
     public $idclient;
     public $nom;
@@ -10,7 +9,7 @@ require 'database/BDConnection.php';
 
 
     public function __construct($tab) {
-        $this->idclient = $tab["IdClient"]
+        $this->idclient = $tab["IdClient"];
         $this->nom = $tab["Nom"];
         $this->prenom = $tab["Prenom"];
         $this->datenaissance = $tab["DateNaissance"];
@@ -72,16 +71,40 @@ require 'database/BDConnection.php';
 
 //--------------------------------------------
 
-    public function reserver($IdCircuit){
+    public function reserver($idcircuit){
       $bdd=databaseconnexion();
-      $sql = 'INSERT INTO `reservation` (`IdReservation`, `DateReservation`, `EtatReservation`, `IdCircuit`, `IdBene`) VALUES
-      (1, '2020-09-17', 'en attente', 7, 3);';
+      $sql = 'INSERT INTO `reservation` (`DateReservation`, `EtatReservation`, `IdCircuit`, `IdBene`, `IdClient`) VALUES ("2020-09-17", "en attente", "'.$idcircuit.'", 3, "'.$this->idclient.'");';
       $req = mysqli_query($bdd, $sql);
 
-      $sql2 = 'INSERT INTO `reserver` (`IdReservation`,`IdClient`) VALUES
-      (1, 2);';
-      $req2 = mysqli_query($bdd, $sql2);
     }
 }
+
+  class admin extends client{
+
+      public function CreeCircuit(){
+
+      }
+
+      public function SupCircuit(){
+
+      }
+
+      public function AjoutEtape(){
+
+      }
+
+      public function SupEtape(){
+
+      }
+
+      public function AjoutLieu(){
+
+      }
+
+      public function SupLieu(){
+
+      }
+
+  }
 
 ?>

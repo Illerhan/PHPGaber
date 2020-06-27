@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 require 'database/BDConnection.php';
-require 'circuit.class.php';
+require 'class/circuit.class.php';
 
 $bdd=databaseconnexion();
 
@@ -31,8 +31,6 @@ $bdd=databaseconnexion();
   <link rel="stylesheet" href="assets/recaptcha.css">
   <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
-
-
 </head>
 <body>
 
@@ -42,14 +40,12 @@ $bdd=databaseconnexion();
   <section class="extMenu6 menu cid-rXy0Arh5ls" once="menu" id="extMenu3-0">
 
 
-
     <nav class="navbar navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
         <div class="menu-content-top">
             <div class="menu-logo">
                 <div class="navbar-brand">
 
-                    <span class="navbar-caption-wrap"><a href="index.html" class="brand-link mbr-black display-5">
-                            L'agence PHP</a></span>
+                    <span class="navbar-caption-wrap"><a href="index.html" class="brand-link mbr-black display-5"> L'agence PHP</a></span>
                 </div>
             </div>
             <div class="menu-content-right">
@@ -68,18 +64,7 @@ $bdd=databaseconnexion();
                     </div>
                 </div>
 
-
-
-
-
-                <div class="navbar-buttons mbr-section-btn"><a class="btn btn-lg btn-primary-outline display-4" href="index.html#extForm21-1">
-
-                        Nous contacter</a></div>
-
-
-
-
-
+                <div class="navbar-buttons mbr-section-btn"><a class="btn btn-lg btn-primary-outline display-4" href="index.html#extForm21-1">Nous contacter</a></div>
 
             </div>
         </div>
@@ -122,7 +107,6 @@ $bdd=databaseconnexion();
 <section class="header2 cid-rzN0ljTJsp" id="header2-3">
 
 
-
     <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);">
     </div>
     <div class="container">
@@ -162,16 +146,13 @@ $bdd=databaseconnexion();
                         </div>
                         <div class="col-auto input-group-btn"><button type="submit" class="btn btn-form btn-secondary display-7" href="https://google.fr">Rechercher</button></div>
                     </div>
-                </form><!---Formbuilder Form--->
+                </form>
             </div>
         </div>
     </div>
 </section>
 
 <section class="features4 cid-rzMXdfrRCn" id="features04-2">
-
-
-
 
     <div class="container">
         <h2 class="mbr-section-title pb-1 mbr-normal mbr-fonts-style align-left display-2">Nos voyages disponibles</h2>
@@ -180,18 +161,19 @@ $bdd=databaseconnexion();
 
           <?php
 
-          $sql = 'SELECT * FROM circuit';
+          $sql = 'SELECT c.IdCircuit, Descriptif, VilleDepart, PaysDepart, VilleArrivee, PaysArrivee, DateDepart, NbrPlaceDispo, c.Duree, PrixInscription, count(e.IdCircuit) as NbrEtape from circuit c, etape e where c.IdCircuit= e.IdCircuit GROUP BY c.IdCircuit;';
           $req = mysqli_query($bdd, $sql);
 
           if (!empty($req)) {
             while($donnees = mysqli_fetch_array($req)){
               $circuit = new Circuit($donnees);
 
+
           ?>
             <div class="card p-3 col-12 col-md-6 col-lg-4">
 
                 <div class="card-wrapper">
-                  <a href="circuit.php?idcircuit=<?php echo $circuit->getidcircuit()?>">
+                  <a href="circuit.php?idcircuit=<?= $circuit->getidcircuit()?>">
                     <div class="card-img">
                         <img src="assets/images/guestblogger-newyorknl-north-america-usa-newyork-times-square-yellow-cab-medium-696x464.jpg" title="" alt="">
                         <div class="card-box">
@@ -206,19 +188,19 @@ $bdd=databaseconnexion();
                     <a/>
 
                     <div class="text-box">
-                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7"><?php echo $circuit->getnomcircuit() ?></h4>
+                        <h4 class="card-title2 mbr-fonts-style mbr-normal display-7"><?='Circuit N° : '. $circuit->getidcircuit() ?></h4>
                         <div class="ico-box">
                             <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $circuit->getvilledepart() ?></p>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?= $circuit->getvilledepart() ?></p>
                         </div>
                     </div>
                     <div class="p-box">
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">3 étapes<br>
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4"><?= $circuit->getnbretape() ?> étapes<br>
                         </p>
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4">3 lieux à visiter&nbsp;<br>&nbsp;
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4"><?= $circuit->getnbretape() ?> lieux à visiter&nbsp;<br>&nbsp;
                             <br>
                         </p>
-                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4"><?php echo $circuit->getvilledepart() ?> - <?php echo $circuit->getvillearrivee() ?>&nbsp;<br>
+                        <p class="mbr-text mbr-fonts-style mbr-normal card-text display-4"><?=$circuit->getvilledepart() ?> - <?=$circuit->getvillearrivee() ?>&nbsp;<br>
                             <br>
                         </p>
                     </div>
@@ -231,7 +213,7 @@ $bdd=databaseconnexion();
 
                         <div class="ico-box">
                             <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-calendar"></span>
-                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4"><?php echo $circuit->getdatedepart() ?></p>
+                            <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4"><?= $circuit->getdatedepart() ?></p>
                         </div>
 
                     </div>
@@ -241,20 +223,15 @@ $bdd=databaseconnexion();
             </div>
 
             <?php
-
             }
           }
-
             ?>
-
 
         </div>
     </div>
 </section>
 
 <section class="features5 counters cid-rzN0s6n1UA" id="features05-5">
-
-
 
     <div class="mbr-overlay" style="opacity: 0.8; background-color: rgb(35, 35, 35);">
     </div>
@@ -301,8 +278,6 @@ $bdd=databaseconnexion();
 
 <section class="map2 cid-rzN0USyFM8" id="map2-a">
 
-
-
     <div class="container-fluid">
 
         <div class="d-flex justify-content-center">
@@ -319,8 +294,6 @@ $bdd=databaseconnexion();
 </section>
 
 <section class="extForm cid-rXy5O6rS10" id="extForm21-1">
-
-
 
 
     <div class="container">
@@ -375,8 +348,6 @@ $bdd=databaseconnexion();
             </div>
 
 
-
-
             <div class="col-lg-7 col-md-12 col-sm-12 align-left">
                 <h2 class="title2 mbr-fonts-style mbr-bold display-5">
                     Nous contacter</h2>
@@ -403,7 +374,7 @@ $bdd=databaseconnexion();
                             </div>
                             <div class="col-md-12 input-group-btn"><button type="submit" class="btn btn-form btn-primary display-4" href="https://google.fr">Envoyer</button></div>
                         </div>
-                    </form><!---Formbuilder Form--->
+                    </form>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 --3
 select c.IdCircuit, Descriptif, VilleDepart, VilleArrivee, count(e.IdCircuit)
 from circuit c, etape e
-where c.IdCircuit=7 and e.IdCircuit=7;
+where c.IdCircuit= e.IdCircuit and c.IdCircuit=7;
 
 --4
 delete
@@ -28,8 +28,6 @@ delete
 from etape
 where IdCircuit = 7 and ordre = 2;
 
---7
-INSERT INTO `reservation` (`IdReservation`, `DateReservation`, `EtatReservation`, `IdCircuit`, `IdBene`) VALUES
-(1, '2020-09-17', 'en attente', 7, 3);
-INSERT INTO `reserver` (`IdReservation`,`IdClient`) VALUES
-(1, 2);
+--7 OK
+INSERT INTO `reservation` (`DateReservation`, `EtatReservation`, `IdCircuit`, `IdBene`, `IdClient`) VALUES
+("2020-09-17", 'en attente', 7, 3, 1);

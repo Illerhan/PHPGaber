@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS `beneficiaire` (
 
 CREATE TABLE IF NOT EXISTS `circuit` (
   `IdCircuit` int(11) NOT NULL AUTO_INCREMENT,
-  `nomCircuit` varchar(50) DEFAULT NULL,
   `Descriptif` varchar(50) DEFAULT NULL,
   `VilleDepart` varchar(50) DEFAULT NULL,
   `PaysDepart` varchar(50) DEFAULT NULL,
@@ -64,20 +63,13 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `EtatReservation` varchar(25) DEFAULT NULL,
   `IdCircuit` int(11) NOT NULL,
   `IdBene` int(11) NOT NULL,
+  `IdClient` int(11) NOT NULL,
   PRIMARY KEY (`IdReservation`),
   FOREIGN KEY (IdCircuit) REFERENCES circuit (IdCircuit),
-  FOREIGN KEY (IdBene) REFERENCES beneficiaire (IdBene)
+  FOREIGN KEY (IdBene) REFERENCES beneficiaire (IdBene),
+  FOREIGN KEY (IdClient) REFERENCES client (IdClient)
 );
 
-
-
-CREATE TABLE IF NOT EXISTS `reserver` (
-  `IdReservation` int(11) NOT NULL,
-  `IdClient` int(11) NOT NULL,
-  PRIMARY KEY (`IdReservation`,`IdClient`),
-  FOREIGN KEY (IdClient) REFERENCES client (IdClient),
-  FOREIGN KEY (IdReservation) REFERENCES reservation (IdReservation)
-);
 
 
 
