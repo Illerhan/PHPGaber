@@ -1,4 +1,34 @@
 <!DOCTYPE html>
+<?php
+require 'database/BDConnection.php';
+require 'class/circuit.class.php';
+require 'class/reservation.class.php';
+
+$bdd=databaseconnexion();
+
+session_start();//session_start() combiné à $_SESSION (voir en fin de traitement du formulaire) nous permettra de garder le pseudo en sauvegarde pendant qu'il est connecté, si vous voulez que sur une page, le pseudo soit (ou tout autre variable sauvegardée avec $_SESSION) soit retransmis, mettez session_start() au début de votre fichier PHP, comme ici
+
+if(!isset($_SESSION['Mail'])){
+    header("Refresh: 5; url=login.php");//redirection vers le formulaire de connexion dans 5 secondes
+    echo "Vous devez vous connecter pour accéder à cette espace .<i>Redirection en cours, vers la page de connexion...</i>";
+    exit(0);//on arrête l'éxécution du reste de la page avec exit, si le membre n'est pas connecté
+}
+
+$sql = 'SELECT * FROM client WHERE Email="'.$_SESSION['Mail'].'"';
+$req = mysqli_query($bdd, $sql);
+
+  while($donnees = mysqli_fetch_array($req)){
+    $IdClient=$donnees['IdClient'];
+    $Admin=$donnees['Grade'];
+}
+
+if($Admin<1){
+    header("Refresh: 5; url=index.php");//redirection vers le formulaire de connexion dans 5 secondes
+    echo "Il faut être Admin pour afficher cette page";
+    exit(0);//on arrête l'éxécution du reste de la page avec exit, si le membre n'est pas connecté
+}
+
+?>
 <html>
 <head>
 
@@ -10,7 +40,7 @@
   <meta name="description" content="">
 
 
-  <title>Ajouter Voyage</title>
+  <title>Administration</title>
   <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
   <link rel="stylesheet" href="assets/tether/tether.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -43,20 +73,6 @@
                 </div>
             </div>
             <div class="menu-content-right">
-                <div class="info-widget">
-                    <span class="widget-icon mbr-iconfont mbri-mobile2" style="color: rgb(59, 90, 187); fill: rgb(59, 90, 187);"></span>
-                    <div class="widget-content display-4">
-                        <p class="widget-title mbr-fonts-style display-4">+ 33 7 79 82 63 98</p>
-                        <p class="widget-text mbr-fonts-style display-4">+ 33 7 98 70 76 89</p>
-                    </div>
-                </div>
-                <div class="info-widget">
-                    <span class="widget-icon mbr-iconfont mbri-clock" style="color: rgb(59, 90, 187); fill: rgb(59, 90, 187);"></span>
-                    <div class="widget-content display-4">
-                        <p class="widget-title mbr-fonts-style display-4">Lundi - Vendredi : 9:00 - 18:00</p>
-                        <p class="widget-text mbr-fonts-style display-4">Samdedi - Dimanche : Fermé</p>
-                    </div>
-                </div>
 
 
 
@@ -76,25 +92,46 @@
         <div class="menu-bottom">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav nav-dropdown js-float-line" data-app-modern-menu="true"><li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="#top">
+                        <a class="nav-link link mbr-black text-white display-4" href="index.php">
                             Accueil</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link link mbr-black text-white dropdown-toggle display-4" href="#" data-toggle="dropdown-submenu" aria-expanded="true">Voyages</a>
-                        <div class="dropdown-menu">
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                        </div>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="https://google.fr">Connexion</a>
+                        <?php
+                        if(isset($_SESSION['Mail'])){
+                         ?>
+                        <a class="nav-link link mbr-black text-white display-4" href="moncompte.php">Mes reservations</a>
+                        <?php
+                      } else {
+                         ?>
+                         <a class="nav-link link mbr-black text-white display-4" href="login.php">Connexion</a>
+                         <?php
+                         }
+                          ?>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="https://google.fr">
-                            Inscription</a>
-                    </li></ul>
+                      <?php
+                      if(isset($_SESSION['Mail'])){
+                       ?>
+                      <a class="nav-link link mbr-black text-white display-4" href="logout.php">Déconnexion</a>
+                      <?php
+                    } else {
+                       ?>
+                       <a class="nav-link link mbr-black text-white display-4" href="login.php">Inscription</a>
+                       <?php
+                       }
+                        ?>
+                    </li>
+                    <?php
+                    if($Admin>=1){
+                     ?>
+                     <li class="nav-item">
+                    <a class="nav-link link mbr-black text-white display-4" href="admin.php">Administration</a>
+                    </li>
+                    <?php
+                    }
+                     ?>
+                   </ul>
 
             </div>
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,42 +153,18 @@
 
     <div class="container">
         <h2 class="mbr-fonts-style mbr-section-title align-center display-2">Administration</h2>
-        <?php
-
-        require 'Circuit.php';
-
-        $camphin = new Circuit("Lille");
-        $orchie = new Circuit("POPOPO");
-        $cysoing = new Circuit("LOL");
-
-        $camphin->VilleDepart = "Camphin";
-
-        $orchie->afficher("MOMO");
-
-        $cysoing->VilleDepart = "Cysoing";
-        $cysoing->mort(); //retourne True
-
-        $camphin->attaque($cysoing);
-
-        var_dump($camphin);
-        var_dump($cysoing);
-
-
-
-
-        ?>
         <h3 class="mbr-fonts-style mbr-section-subtitle align-center display-5">Gérer les circuits et les lieux</h3>
         <div class="row justify-content-center pt-4">
             <div class="col-md-10 col-lg-8 content-block">
             <div class="accordion-content">
-                <div id="bootstrap-accordion_1" class="panel-group accordionStyles accordion " role="tablist" aria-multiselectable="true">
+                <div id="bootstrap-accordion_13" class="panel-group accordionStyles accordion " role="tablist" aria-multiselectable="true">
                         <div class="card">
                             <div class="card-header" role="tab" id="headingOne">
-                                <a role="button" class="collapsed panel-title" data-toggle="collapse" data-core="" href="#collapse1_1" aria-expanded="false" aria-controls="collapse1">
+                                <a role="button" class="collapsed panel-title" data-toggle="collapse" data-core="" href="#collapse1_13" aria-expanded="false" aria-controls="collapse1">
                                     <h4 class="mbr-fonts-style header-text display-5">Créer un nouveau circuit</h4>
                                 </a>
                             </div>
-                            <div id="collapse1_1" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#bootstrap-accordion_1">
+                            <div id="collapse1_13" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#bootstrap-accordion_13">
                                 <div class="panel-body p-4">
 <section class="form" group="Form" plugins="formstyler, datepicker">
 
@@ -160,7 +173,7 @@
         <div class="row">
             <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 <!--Formbuilder Form-->
-<form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="x1Ebk8crm5lB4CJTYWqkclgedLXZwoqpV975cG/Kxe3xR6l2TCoALj5PviikUMPMOVWTY9uwFgjSbmXDwvV3KChehsZuxVxDCEOTWw0F/91gNADzml5cGOsmjjAqaWY/.Ef3jn4AHzVMkQY0dEve7phxqT8aDWA618NFPloR2uoygeKnn0uDoZl3CkQGJmDY5jupeZYVz5WIF35sgbRp0MqwA2yaqcrPasa2mF26k/NaEZ/cIv+EygJpOnwHdKU82">
+<form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="GvpK+jNTywRPJnWR4g8lQ6NM5+GMbFokrcifqz/1RuNSl3hiIkTTltSZPA3O/9ZfiG908dxfkmpVMKXPZcSVe9RCVbia1Rm1onzXA1vVHrZ3yIeOJ4eHT63q+skRo2KV.gQvijtag0IO8NBurOO+dJKF5Adhe5hVwLMgztUe5iE+KcNrd5gX8MsODOZF4KcPauRqdBPwpaU2DS8zwj3xCJjv6MGNanwoQDssWjEXulFpwnBau6BolMwEab5AICKhS">
 <div class="form-row">
 <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Thanks for filling out the form!</div>
 <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some problem!</div>
@@ -222,13 +235,13 @@
 
                         <div class="card">
                             <div class="card-header" role="tab" id="headingTwo">
-                                <a role="button" class="collapsed panel-title" data-toggle="collapse" data-core="" href="#collapse2_1" aria-expanded="false" aria-controls="collapse2">
+                                <a role="button" class="collapsed panel-title" data-toggle="collapse" data-core="" href="#collapse2_13" aria-expanded="false" aria-controls="collapse2">
                                     <h4 class="mbr-fonts-style header-text display-5">
                                         Créer un nouveau lieu</h4>
                                 </a>
 
                             </div>
-                            <div id="collapse2_1" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#bootstrap-accordion_1">
+                            <div id="collapse2_13" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#bootstrap-accordion_13">
                                 <div class="panel-body p-4">
 <section class="form" group="Form" plugins="formstyler, datepicker">
 
@@ -237,7 +250,7 @@
         <div class="row">
             <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 <!--Formbuilder Form-->
-<form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="x1Ebk8crm5lB4CJTYWqkclgedLXZwoqpV975cG/Kxe3xR6l2TCoALj5PviikUMPMOVWTY9uwFgjSbmXDwvV3KChehsZuxVxDCEOTWw0F/91gNADzml5cGOsmjjAqaWY/.Ef3jn4AHzVMkQY0dEve7phxqT8aDWA618NFPloR2uoygeKnn0uDoZl3CkQGJmDY5jupeZYVz5WIF35sgbRp0MqwA2yaqcrPasa2mF26k/NaEZ/cIv+EygJpOnwHdKU82">
+<form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="GvpK+jNTywRPJnWR4g8lQ6NM5+GMbFokrcifqz/1RuNSl3hiIkTTltSZPA3O/9ZfiG908dxfkmpVMKXPZcSVe9RCVbia1Rm1onzXA1vVHrZ3yIeOJ4eHT63q+skRo2KV.gQvijtag0IO8NBurOO+dJKF5Adhe5hVwLMgztUe5iE+KcNrd5gX8MsODOZF4KcPauRqdBPwpaU2DS8zwj3xCJjv6MGNanwoQDssWjEXulFpwnBau6BolMwEab5AICKhS">
 <div class="form-row">
 <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Thanks for filling out the form!</div>
 <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some problem!</div>
@@ -279,13 +292,13 @@
 
                         <div class="card">
                             <div class="card-header" role="tab" id="headingThree">
-                                <a role="button" class="collapsed panel-title" data-toggle="collapse" data-core="" href="#collapse3_1" aria-expanded="false" aria-controls="collapse3">
+                                <a role="button" class="collapsed panel-title" data-toggle="collapse" data-core="" href="#collapse3_13" aria-expanded="false" aria-controls="collapse3">
                                     <h4 class="mbr-fonts-style header-text display-5">
                                         Modifier / Supprimer un circuit</h4>
 
                                 </a>
                             </div>
-                            <div id="collapse3_1" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#bootstrap-accordion_1">
+                            <div id="collapse3_13" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#bootstrap-accordion_13">
                                 <div class="panel-body p-4">
 <section class="form" group="Form" plugins="formstyler, datepicker">
 
@@ -294,7 +307,7 @@
         <div class="row">
             <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 <!--Formbuilder Form-->
-<form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="x1Ebk8crm5lB4CJTYWqkclgedLXZwoqpV975cG/Kxe3xR6l2TCoALj5PviikUMPMOVWTY9uwFgjSbmXDwvV3KChehsZuxVxDCEOTWw0F/91gNADzml5cGOsmjjAqaWY/.Ef3jn4AHzVMkQY0dEve7phxqT8aDWA618NFPloR2uoygeKnn0uDoZl3CkQGJmDY5jupeZYVz5WIF35sgbRp0MqwA2yaqcrPasa2mF26k/NaEZ/cIv+EygJpOnwHdKU82">
+<form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="GvpK+jNTywRPJnWR4g8lQ6NM5+GMbFokrcifqz/1RuNSl3hiIkTTltSZPA3O/9ZfiG908dxfkmpVMKXPZcSVe9RCVbia1Rm1onzXA1vVHrZ3yIeOJ4eHT63q+skRo2KV.gQvijtag0IO8NBurOO+dJKF5Adhe5hVwLMgztUe5iE+KcNrd5gX8MsODOZF4KcPauRqdBPwpaU2DS8zwj3xCJjv6MGNanwoQDssWjEXulFpwnBau6BolMwEab5AICKhS">
 <div class="form-row">
 <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Thanks for filling out the form!</div>
 <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some problem!</div>
@@ -332,13 +345,13 @@
 
                         <div class="card">
                             <div class="card-header" role="tab" id="headingFour">
-                                <a role="button" class="collapsed panel-title" data-toggle="collapse" data-core="" href="#collapse4_1" aria-expanded="false" aria-controls="collapse4">
+                                <a role="button" class="collapsed panel-title" data-toggle="collapse" data-core="" href="#collapse4_13" aria-expanded="false" aria-controls="collapse4">
                                     <h4 class="mbr-fonts-style header-text display-5">
                                         Modifier / Supprimer un lieu</h4>
 
                                 </a>
                             </div>
-                            <div id="collapse4_1" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#bootstrap-accordion_1">
+                            <div id="collapse4_13" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#bootstrap-accordion_13">
                                 <div class="panel-body p-4">
 <section class="form" group="Form" plugins="formstyler, datepicker">
 
@@ -347,7 +360,7 @@
         <div class="row">
             <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 <!--Formbuilder Form-->
-<form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="x1Ebk8crm5lB4CJTYWqkclgedLXZwoqpV975cG/Kxe3xR6l2TCoALj5PviikUMPMOVWTY9uwFgjSbmXDwvV3KChehsZuxVxDCEOTWw0F/91gNADzml5cGOsmjjAqaWY/.Ef3jn4AHzVMkQY0dEve7phxqT8aDWA618NFPloR2uoygeKnn0uDoZl3CkQGJmDY5jupeZYVz5WIF35sgbRp0MqwA2yaqcrPasa2mF26k/NaEZ/cIv+EygJpOnwHdKU82">
+<form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="GvpK+jNTywRPJnWR4g8lQ6NM5+GMbFokrcifqz/1RuNSl3hiIkTTltSZPA3O/9ZfiG908dxfkmpVMKXPZcSVe9RCVbia1Rm1onzXA1vVHrZ3yIeOJ4eHT63q+skRo2KV.gQvijtag0IO8NBurOO+dJKF5Adhe5hVwLMgztUe5iE+KcNrd5gX8MsODOZF4KcPauRqdBPwpaU2DS8zwj3xCJjv6MGNanwoQDssWjEXulFpwnBau6BolMwEab5AICKhS">
 <div class="form-row">
 <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Thanks for filling out the form!</div>
 <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some problem!</div>

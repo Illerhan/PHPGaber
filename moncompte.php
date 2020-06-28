@@ -6,7 +6,21 @@ require 'class/reservation.class.php';
 
 $bdd=databaseconnexion();
 
-$_SESSION['ID']=1;
+session_start();//session_start() combiné à $_SESSION (voir en fin de traitement du formulaire) nous permettra de garder le pseudo en sauvegarde pendant qu'il est connecté, si vous voulez que sur une page, le pseudo soit (ou tout autre variable sauvegardée avec $_SESSION) soit retransmis, mettez session_start() au début de votre fichier PHP, comme ici
+
+if(!isset($_SESSION['Mail'])){
+    header("Refresh: 5; url=login.php");//redirection vers le formulaire de connexion dans 5 secondes
+    echo "Vous devez vous connecter pour accéder à cette espace .<i>Redirection en cours, vers la page de connexion...</i>";
+    exit(0);//on arrête l'éxécution du reste de la page avec exit, si le membre n'est pas connecté
+}
+
+$sql = 'SELECT * FROM client WHERE Email="'.$_SESSION['Mail'].'"';
+$req = mysqli_query($bdd, $sql);
+
+  while($donnees = mysqli_fetch_array($req)){
+    $IdClient=$donnees['IdClient'];
+    $Admin=$donnees['Grade'];
+}
 
 ?>
 
@@ -49,20 +63,6 @@ $_SESSION['ID']=1;
                 </div>
             </div>
             <div class="menu-content-right">
-                <div class="info-widget">
-                    <span class="widget-icon mbr-iconfont mbri-mobile2" style="color: rgb(59, 90, 187); fill: rgb(59, 90, 187);"></span>
-                    <div class="widget-content display-4">
-                        <p class="widget-title mbr-fonts-style display-4">+ 33 7 79 82 63 98</p>
-                        <p class="widget-text mbr-fonts-style display-4">+ 33 7 98 70 76 89</p>
-                    </div>
-                </div>
-                <div class="info-widget">
-                    <span class="widget-icon mbr-iconfont mbri-clock" style="color: rgb(59, 90, 187); fill: rgb(59, 90, 187);"></span>
-                    <div class="widget-content display-4">
-                        <p class="widget-title mbr-fonts-style display-4">Lundi - Vendredi : 9:00 - 18:00</p>
-                        <p class="widget-text mbr-fonts-style display-4">Samdedi - Dimanche : Fermé</p>
-                    </div>
-                </div>
 
                 <div class="navbar-buttons mbr-section-btn"><a class="btn btn-lg btn-primary-outline display-4" href="index.html#extForm21-1"> Nous contacter</a></div>
 
@@ -71,25 +71,46 @@ $_SESSION['ID']=1;
         <div class="menu-bottom">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav nav-dropdown js-float-line" data-app-modern-menu="true"><li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="#top">
+                        <a class="nav-link link mbr-black text-white display-4" href="index.php">
                             Accueil</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link link mbr-black text-white dropdown-toggle display-4" href="#" data-toggle="dropdown-submenu" aria-expanded="true">Voyages</a>
-                        <div class="dropdown-menu">
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                        </div>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="https://google.fr">Connexion</a>
+                        <?php
+                        if(isset($_SESSION['Mail'])){
+                         ?>
+                        <a class="nav-link link mbr-black text-white display-4" href="moncompte.php">Mes reservations</a>
+                        <?php
+                      } else {
+                         ?>
+                         <a class="nav-link link mbr-black text-white display-4" href="login.php">Connexion</a>
+                         <?php
+                         }
+                          ?>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="https://google.fr">
-                            Inscription</a>
-                    </li></ul>
+                      <?php
+                      if(isset($_SESSION['Mail'])){
+                       ?>
+                      <a class="nav-link link mbr-black text-white display-4" href="logout.php">Déconnexion</a>
+                      <?php
+                    } else {
+                       ?>
+                       <a class="nav-link link mbr-black text-white display-4" href="login.php">Inscription</a>
+                       <?php
+                       }
+                        ?>
+                    </li>
+                    <?php
+                    if($Admin>=1){
+                     ?>
+                     <li class="nav-item">
+                    <a class="nav-link link mbr-black text-white display-4" href="admin.php">Administration</a>
+                    </li>
+                    <?php
+                    }
+                     ?>
+                   </ul>
 
             </div>
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,7 +143,7 @@ $_SESSION['ID']=1;
 
           <?php
 
-          $sql = 'SELECT * FROM reservation WHERE IdClient="'.$_SESSION['ID'].'"';
+          $sql = 'SELECT * FROM reservation WHERE IdClient="'.$IdClient.'"';
           $req = mysqli_query($bdd, $sql);
 
           if (!empty($req)) {
