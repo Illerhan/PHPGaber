@@ -23,11 +23,11 @@ where c.IdCircuit=e.IdCircuit and e.nomlieu=l.NomLieu and e.ville=l.ville and e.
 group by c.IdCircuit
 having prix<900;
 
---8
+--7
 delete
 from etape
 where IdCircuit = 7 and ordre = 2;
 
---7 OK
+--7 8
 INSERT INTO `reservation` (`DateReservation`, `EtatReservation`, `IdCircuit`, `IdBene`, `IdClient`) VALUES
 ("2020-09-17", 'en attente', 7, 3, 1);

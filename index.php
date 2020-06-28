@@ -50,39 +50,13 @@ session_start();
                     <span class="navbar-caption-wrap"><a href="index.html" class="brand-link mbr-black display-5"> L'agence PHP</a></span>
                 </div>
             </div>
-            <div class="menu-content-right">
-                <div class="info-widget">
-                    <span class="widget-icon mbr-iconfont mbri-mobile2" style="color: rgb(59, 90, 187); fill: rgb(59, 90, 187);"></span>
-                    <div class="widget-content display-4">
-                        <p class="widget-title mbr-fonts-style display-4">+ 33 7 79 82 63 98</p>
-                        <p class="widget-text mbr-fonts-style display-4">+ 33 7 98 70 76 89</p>
-                    </div>
-                </div>
-                <div class="info-widget">
-                    <span class="widget-icon mbr-iconfont mbri-clock" style="color: rgb(59, 90, 187); fill: rgb(59, 90, 187);"></span>
-                    <div class="widget-content display-4">
-                        <p class="widget-title mbr-fonts-style display-4">Lundi - Vendredi : 9:00 - 18:00</p>
-                        <p class="widget-text mbr-fonts-style display-4">Samdedi - Dimanche : Fermé</p>
-                    </div>
-                </div>
 
-                <div class="navbar-buttons mbr-section-btn"><a class="btn btn-lg btn-primary-outline display-4" href="index.html#extForm21-1">Nous contacter</a></div>
-
-            </div>
         </div>
         <div class="menu-bottom">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown js-float-line" data-app-modern-menu="true"><li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="#top">
-                            Accueil</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link link mbr-black text-white dropdown-toggle display-4" href="#" data-toggle="dropdown-submenu" aria-expanded="true">Voyages</a>
-                        <div class="dropdown-menu">
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                        </div>
+                <ul class="navbar-nav nav-dropdown js-float-line" data-app-modern-menu="true">
+                    <li class="nav-item">
+                        <a class="nav-link link mbr-black text-white display-4" href="/index.php">Accueil</a>
                     </li>
 
                     <li class="nav-item">
@@ -91,26 +65,27 @@ session_start();
                          ?>
                         <a class="nav-link link mbr-black text-white display-4" href="moncompte.php">Mes reservations</a>
                         <?php
-                      } else {
+                        } else {
                          ?>
                          <a class="nav-link link mbr-black text-white display-4" href="login.php">Connexion</a>
                          <?php
                          }
                           ?>
-                    </li>
-                    <li class="nav-item">
-                      <?php
-                      if(isset($_SESSION['Mail'])){
+                        </li>
+                        <li class="nav-item">
+                        <?php
+                        if(isset($_SESSION['Mail'])){
                        ?>
                       <a class="nav-link link mbr-black text-white display-4" href="logout.php">Déconnexion</a>
-                      <?php
-                    } else {
+                        <?php
+                      } else {
                        ?>
                        <a class="nav-link link mbr-black text-white display-4" href="login.php">Inscription</a>
                        <?php
                        }
                         ?>
-                    </li></ul>
+                    </li>
+                </ul>
 
             </div>
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,31 +111,21 @@ session_start();
         <div class="row justify-content-center">
             <div class="media-container-column col-lg-12 col-md-10 col-sm-12 align-center" data-form-type="formoid">
                 <!---Formbuilder Form--->
-                <form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Mobirise Form"><input type="hidden" name="email" data-form-email="true" value="RsSQ45tMTpE0ZBphARdsPM8j6sPaKG4lBPLje8wiTy8p7qdWOojIBTBTLaiXEN5OVRGD812clqA5e87+E2GEtesOcb9Rdb35xg2qKG6FUBK27CXIYgO0zsxWTx1ZcUVL.um4mzbog0e97xMId2HQ2GhOcqAQuq7mfZrdbaaYhhkITVRQpJquKZc3eOoP0cGQTmW/CVlh7id1uKcsAlvnJjal8jbHJqOZoOSmUvPDbnGvFWPtWqAQ1Zy0fRpO9Q5Ue">
-                    <div class="row">
-                        <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Recherche en cours...</div>
-                        <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
-                        </div>
-                    </div>
+                <form  method="POST" class="mbr-form form-with-styler" data-form-title="Mobirise Form">
+
                     <div class="dragArea row">
                         <div class="col-lg-3 col-md-6 form-group" data-for="type">
-                            <select name="type" data-form-field="Type" class="form-control display-7" placeholder="Any Type" id="type-header2-3">
-                                <option value="Any Type">Pays</option>
-                                <option value="Apartments">France</option>
-                                <option value="Houses">Belgique</option>
-                                <option value="Commercial">Allemagne</option>
-                                <option value="Garages">Espagne</option>
-                                <option value="Lots">Etat-Unis</option>
+                            <select name="type" data-form-field="Type" class="form-control display-7" placeholder="Nombre de personne" id="type-header2-3">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
                             </select>
                         </div>
-                        <div class="col-lg-3 col-md-6 form-group" data-for="status">
-                            <select name="status" data-form-field="Status" class="form-control display-7" placeholder="Any Status" id="status-header2-3">
-                                <option value="Any Status">Budget</option>
-                                <option value="For Sale">-1000€</option>
-                                <option value="For Rent">-2000€</option>
-                                <option value="For Rent2">-3000€</option>
-                                <option value="For Rent3">+3000€</option>
-                            </select>
+                        <div data-for="message" class="col-lg-2 col-md-4 form-group">
+                            <input type="text" name="message" placeholder="Budget   €" data-form-field="Message" class="form-control input display-7" id="message-header2-3">
                         </div>
                         <div data-for="message" class="col-lg-4 col-md-9 form-group">
                             <input type="text" name="message" placeholder="Entre un adresse si vous souhaitez..." data-form-field="Message" class="form-control input display-7" id="message-header2-3">
@@ -188,7 +153,6 @@ session_start();
           if (!empty($req)) {
             while($donnees = mysqli_fetch_array($req)){
               $circuit = new Circuit($donnees);
-
 
           ?>
             <div class="card p-3 col-12 col-md-6 col-lg-4">
@@ -248,156 +212,6 @@ session_start();
           }
             ?>
 
-        </div>
-    </div>
-</section>
-
-<section class="features5 counters cid-rzN0s6n1UA" id="features05-5">
-
-    <div class="mbr-overlay" style="opacity: 0.8; background-color: rgb(35, 35, 35);">
-    </div>
-    <div class="container">
-        <div class="media-container-row">
-
-            <div class="card p-3 col-12 col-md-6 border-r col-lg-4">
-                <div class="card-img pb-3">
-                    <span class="mbr-iconfont mbri-globe"></span>
-                </div>
-                <div class="card-box">
-                    <h4 class="count card-title mbr-fonts-style mbr-white mbr-bold align-center display-1">942</h4>
-                    <p class="mbr-text mbr-fonts-style mbr-white mbr-normal align-center display-5">
-                        Voyage disponible</p>
-                </div>
-            </div>
-
-            <div class="card p-3 col-12 col-md-6 border-r col-lg-4">
-                <div class="card-img pb-3">
-                    <span class="mbr-iconfont mbri-flag"></span>
-                </div>
-                <div class="card-box">
-                    <h4 class="count card-title mbr-fonts-style mbr-white mbr-bold align-center display-1">1476</h4>
-                    <p class="mbr-text mbr-fonts-style mbr-white mbr-normal align-center display-5">
-                        Lieu à visiter</p>
-                </div>
-            </div>
-
-            <div class="card p-3 col-12 col-md-6 border-r col-lg-4">
-                <div class="card-img pb-3">
-                    <span class="mbr-iconfont mbri-user"></span>
-                </div>
-                <div class="card-box">
-                    <h4 class="count card-title mbr-fonts-style mbr-white mbr-bold align-center display-1">164</h4>
-                    <p class="mbr-text mbr-fonts-style mbr-white mbr-normal align-center display-5">
-                        Nos clients</p>
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-</section>
-
-<section class="map2 cid-rzN0USyFM8" id="map2-a">
-
-    <div class="container-fluid">
-
-        <div class="d-flex justify-content-center">
-            <div class="relative">
-                <div class="google-map"><iframe frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCy9r70T3NYf3PhvVflTo0_zdif2_IoIYs&amp;q=place_id:ChIJjTrWU_zYwkcRA-yi4iKWc04" allowfullscreen=""></iframe></div>
-                <div class="block">
-                    <h2 class="title mbr-fonts-style mbr-bold display-2">Notre agence</h2>
-                    <div class="line"></div>
-                    <p class="mbr-fonts-style mbr-text text display-7">33 rue du château de luchin&nbsp;<br>Camphin-en-pevele 59780&nbsp;<br>projetgaber@gmail.com<br>Téléphone : +33 7 79 82 63 98</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="extForm cid-rXy5O6rS10" id="extForm21-1">
-
-
-    <div class="container">
-        <div class="row justify-content-center">
-
-            <div class="col-lg-5 col-md-12 col-sm-12 align-center">
-                <h2 class="title1 mbr-fonts-style mbr-bold display-5">
-                    Une question ?</h2>
-                <h3 class="mbr-section-subtitle mbr-fonts-style display-7">
-                    Si vous avez des questions sur un voyage, une visite ou encore une étape vous pouvez nous contacter via ce formulaire ou directement par téléphone pour plus d'informations.</h3>
-
-                <div class="ico-box">
-                    <span class="pr-3 mbr-iconfont mbr-iconfont-social icon mbri-mobile2"></span>
-                    <div>
-                        <h4 class="mbr-fonts-style type display-7">Téléphone</h4>
-                        <p class="mbr-fonts-style content display-7">
-                            + 33 7 79 82 63 98 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
-                    </div>
-                </div>
-
-
-                <div class="ico-box">
-                    <span class="pr-3 mbr-iconfont mbr-iconfont-social icon mbri-mobile2"></span>
-                    <div>
-                        <h4 class="mbr-fonts-style type display-7">S.A.V</h4>
-                        <p class="mbr-fonts-style content display-7">
-                            + 33 7 98 70 76 89</p>
-                    </div>
-                </div>
-
-
-                <div class="ico-box">
-                    <span class="pr-3 mbr-iconfont mbr-iconfont-social icon mbri-globe"></span>
-                    <div>
-                        <h4 class="mbr-fonts-style type display-7">Site web</h4>
-                        <p class="mbr-fonts-style content display-7">
-                            www.agencephp.com</p>
-                    </div>
-                </div>
-
-
-                <div class="ico-box">
-                    <span class="pr-3 mbr-iconfont mbr-iconfont-social icon mbri-letter"></span>
-                    <div>
-                        <h4 class="mbr-fonts-style type display-7">Email</h4>
-                        <p class="mbr-fonts-style content display-7">
-                            projetgaber@gmail.com</p>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-            <div class="col-lg-7 col-md-12 col-sm-12 align-left">
-                <h2 class="title2 mbr-fonts-style mbr-bold display-5">
-                    Nous contacter</h2>
-                <div data-form-type="formoid">
-                    <!---Formbuilder Form--->
-                    <form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Mobirise Form"><input type="hidden" name="email" data-form-email="true" value="p0t4zueBpyntbkWuU0nsBl0HkQVHprZ0trfOG5/25I9FDpDjAqA+SP4oM1/iex1OjGQ2hglJfUgcrEAeANpp2G1l5gb2eoKHTlT4srY9+jGO3li297BRCUbDf1czMODF.7uxmZ1j3Rr6H05LyPRot+IRr4Whm2vrfCVg8o5UA7d8xysbyTYExS20JldpJVu/V8zrWDmFQ4X2EVPYEIt1hGVhKsDZLrNqX4nHaHcmgVob4oVPw5vyajyIBxD8rby3M">
-                        <div class="row">
-                            <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Merci de nous avoir contacté !</div>
-                            <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
-                            </div>
-                        </div>
-                        <div class="dragArea row">
-                            <div class="col-md-6  form-group" data-for="name">
-                                <input type="text" name="name" placeholder="Votre nom" data-form-field="Name" required="required" class="form-control display-7" id="name-extForm21-1">
-                            </div>
-                            <div class="col-md-6  form-group" data-for="email">
-                                <input type="email" name="email" placeholder="Votre mail" data-form-field="Email" required="required" class="form-control display-7" id="email-extForm21-1">
-                            </div>
-                            <div data-for="phone" class="col-md-12  form-group">
-                                <input type="tel" name="phone" placeholder="Sujet" data-form-field="Phone" class="form-control display-7" id="phone-extForm21-1">
-                            </div>
-                            <div data-for="message" class="col-md-12 form-group ">
-                                <textarea name="message" placeholder="Message" data-form-field="Message" class="form-control display-7" id="message-extForm21-1"></textarea>
-                            </div>
-                            <div class="col-md-12 input-group-btn"><button type="submit" class="btn btn-form btn-primary display-4" href="https://google.fr">Envoyer</button></div>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
 </section>
