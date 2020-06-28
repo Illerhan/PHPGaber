@@ -85,14 +85,6 @@ session_start();
                 </ul>
 
             </div>
-            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
         </div>
     </nav>
 </section>
@@ -158,7 +150,14 @@ session_start();
                                 <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $circuit->getprixinscription() ?></p>
                             </div>
                             <?php
-                              $sql = 'SELECT * FROM client WHERE IdClient=1';
+                              $sql = 'SELECT * FROM client WHERE Email="'.$_SESSION['Mail'].'"';
+                              $req = mysqli_query($bdd, $sql);
+
+                                while($donnees = mysqli_fetch_array($req)){
+                                  $IdClient=$donnees['IdClient'];
+                                  $Admin=$donnees['Grade'];
+                              }
+                              $sql = 'SELECT * FROM client WHERE IdClient= "'.$IdClient.'"';
                               $req = mysqli_query($bdd, $sql);
                               $donnees = mysqli_fetch_array($req);
                               $client = new client($donnees);
@@ -166,12 +165,12 @@ session_start();
                               if (!empty($_POST["reservation"])) {
                                 $client->reserver($circuit->getIdcircuit());
                                 ?>
-                            <meta http-equiv="refresh" content="0.1;url=reservation.php" />
+                            <meta http-equiv="refresh" content="0.1;url=moncompte.php" />
                             <?php
                               }
                               ?>
 
-                            <form  method="post">
+                            <form method="post">
                               <input name="reservation" type="submit" value="Réservation">
                             </form>
                         </div>

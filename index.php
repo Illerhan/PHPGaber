@@ -67,7 +67,7 @@ session_start();
                         <?php
                         } else {
                          ?>
-                         <a class="nav-link link mbr-black text-white display-4" href="login.php">Connexion</a>
+                         <a class="nav-link link mbr-black text-white display-4" href="login.php">Connexion/Inscription</a>
                          <?php
                          }
                           ?>
@@ -78,12 +78,8 @@ session_start();
                        ?>
                       <a class="nav-link link mbr-black text-white display-4" href="logout.php">Déconnexion</a>
                         <?php
-                      } else {
+                      }
                        ?>
-                       <a class="nav-link link mbr-black text-white display-4" href="login.php">Inscription</a>
-                       <?php
-                       }
-                        ?>
                     </li>
                 </ul>
 
@@ -137,7 +133,7 @@ session_start();
 <section class="features4 cid-rzMXdfrRCn" id="features04-2">
 
     <div class="container">
-        <h2 class="mbr-section-title pb-1 mbr-normal mbr-fonts-style align-left display-2">Nos voyages disponibles</h2>
+        <center><h2 class="mbr-section-title pb-1 mbr-normal mbr-fonts-style align-left display-2">Nos voyages disponibles</h2><center/>
         <div class="row row-content justify-content-center">
 
 
