@@ -157,7 +157,6 @@ session_start();
             } } else {
 
 
-              echo "fuck";
           $sql2 = 'SELECT c.IdCircuit, Descriptif, VilleDepart, PaysDepart, VilleArrivee, PaysArrivee, DateDepart, NbrPlaceDispo, c.Duree, PrixInscription, count(e.IdCircuit) as NbrEtape from circuit c, etape e where c.IdCircuit= e.IdCircuit GROUP BY c.IdCircuit;';
           $req2 = mysqli_query($bdd, $sql2); }
 
