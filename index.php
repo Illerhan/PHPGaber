@@ -84,13 +84,6 @@ session_start();
                 </ul>
 
             </div>
-            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
             </button>
         </div>
     </nav>
@@ -133,7 +126,7 @@ session_start();
 <section class="features4 cid-rzMXdfrRCn" id="features04-2">
 
     <div class="container">
-        <center><h2 class="mbr-section-title pb-1 mbr-normal mbr-fonts-style align-left display-2">Nos voyages disponibles</h2><center/>
+        <h2 class="mbr-section-title pb-1 mbr-normal mbr-fonts-style align-left display-2">Nos voyages disponibles</h2>
         <div class="row row-content justify-content-center">
 
 
@@ -171,7 +164,7 @@ session_start();
                     <div class="card-img">
                         <img src="assets/images/guestblogger-newyorknl-north-america-usa-newyork-times-square-yellow-cab-medium-696x464.jpg" title="" alt="">
                         <div class="card-box">
-                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">12 €&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7"><?= $circuit->prixtotal() ?> €&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 &nbsp; &nbsp;
                                 <br><?= $circuit->getidcircuit()?> Jours</h4>
 
@@ -202,7 +195,7 @@ session_start();
                     <div class="ico-wrap">
                         <div class="ico-box">
                             <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-user"></span>
-                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">10 place(s) restantes</p>
+                            <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"> <?=$circuit->getnbrplacedispo() ?> place(s) restantes</p>
                         </div>
 
                         <div class="ico-box">

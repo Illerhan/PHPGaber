@@ -77,11 +77,22 @@ Class Circuit{
     public function getprixinscription(){
       return $this->_PrixInscription;
     }
-    
+
     //----------------------------------
     public function getnbretape(){
       return $this->_nbretape;
     }
-}
+
+    public function prixtotal(){
+      $bdd=databaseconnexion();
+      $sql = 'SELECT sum(PrixVisite)+PrixInscription as prix from circuit c, lieuavisiter l, etape e where c.IdCircuit=e.IdCircuit and e.nomlieu=l.NomLieu and e.ville=l.ville and e.pays=l.Pays and c.IdCircuit="'.$this->_idCircuit.'";';
+      $req = mysqli_query($bdd, $sql);
+      $donnees=mysqli_fetch_array($req);
+
+      return $donnees['prix'];
+      }
+    }
+
+
 
 ?>

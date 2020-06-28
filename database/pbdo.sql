@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `beneficiaire` (
   `IdBene` int(11) NOT NULL AUTO_INCREMENT,
   `NomBene` varchar(50) DEFAULT NULL,
   `PrenomBene` varchar(50) DEFAULT NULL,
-  `DateNaissanceBene` date DEFAULT NULL,
+  FOREIGN KEY (IdReservation) REFERENCES reservation (IdReservation),
   PRIMARY KEY (`IdBene`)
 );
 
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `circuit` (
   `PaysArrivee` varchar(50) DEFAULT NULL,
   `DateDepart` date DEFAULT NULL,
   `NbrPlaceDispo` int(11) DEFAULT NULL,
-  `Duree` time DEFAULT NULL,
+  `Duree` int(11) DEFAULT NULL,
   `PrixInscription` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`IdCircuit`)
 );
@@ -63,11 +63,9 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `DateReservation` date DEFAULT NULL,
   `EtatReservation` varchar(25) DEFAULT NULL,
   `IdCircuit` int(11) NOT NULL,
-  `IdBene` int(11) NOT NULL,
   `IdClient` int(11) NOT NULL,
   PRIMARY KEY (`IdReservation`),
   FOREIGN KEY (IdCircuit) REFERENCES circuit (IdCircuit),
-  FOREIGN KEY (IdBene) REFERENCES beneficiaire (IdBene),
   FOREIGN KEY (IdClient) REFERENCES client (IdClient)
 );
 
@@ -86,12 +84,11 @@ INSERT INTO `circuit` (`IdCircuit`, `Descriptif`, `VilleDepart`, `PaysDepart`, `
 (8, 'Voyage a traver les océans', 'Paris', 'France', 'Sydney', '2020-10-03', 10, '96:00:00', '121');
 
 
-INSERT INTO `client` (`IdClient`, `Nom`, `Prenom`, `DateNaissance`, `Email`, `Password`, `Grade`) VALUES
-(1, 'Martin', 'Jeanne', '1980-04-15', 'martin@gmail.com', 'Martin'),
-(2, 'Soleo', 'Ginette', '1960-12-20'),
-(3, 'Dupont', 'Martin', '1975-03-29');
-(4, 'admin', 'admin', '2020-01-01', 'admin@gmail.com', 'admin', 1)
-
+INSERT INTO client (IdClient, Nom, Prenom, DateNaissance, Email, Password, Grade) VALUES
+(1, 'Martin', 'Jeanne', '1980-04-15', 'martin@gmail.com', 'Martin',0),
+(2, 'Soleo', 'Ginette', '1960-12-20', 'soleo@gmail.com', 'soleo',0),
+(3, 'Dupont', 'Martin', '1975-03-29', 'dupont@gmail.com', 'dupont',0),
+(4, 'admin', 'admin', '2020-01-01', 'admin@gmail.com', 'admin', 1);
 
 INSERT INTO `etape` (`IdCircuit`, `Ordre`, `DateEtape`, `Duree`, `NomLieu`, `Ville`, `Pays`) VALUES
 (7, '1', '2020-10-02', '05:10:00', 'Tour Eiffel', 'Paris', 'France'),
