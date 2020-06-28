@@ -5,6 +5,7 @@ require 'class/circuit.class.php';
 require 'class/client.class.php';
 
 $bdd=databaseconnexion();
+session_start();
 
 ?>
 
@@ -19,75 +20,68 @@ $bdd=databaseconnexion();
   <meta name="description" content="">
 
 
-  <title>Circuit</title>
+  <title>Accueil</title>
   <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
   <link rel="stylesheet" href="assets/tether/tether.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
   <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/formstyler/jquery.formstyler.css">
+  <link rel="stylesheet" href="assets/formstyler/jquery.formstyler.theme.css">
   <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="stylesheet" href="assets/recaptcha.css">
   <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-
 
 </head>
 <body>
 
 <section id='top-1'></section>
 
-  <section class="extMenu6 menu cid-rXy0Arh5ls" once="menu" id="extMenu3-a">
+
+  <section class="extMenu6 menu cid-rXy0Arh5ls" once="menu" id="extMenu3-0">
+
 
     <nav class="navbar navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
         <div class="menu-content-top">
             <div class="menu-logo">
                 <div class="navbar-brand">
 
-                    <span class="navbar-caption-wrap"><a href="index.html" class="brand-link mbr-black display-5">
-                            L'agence PHP</a></span>
+                    <span class="navbar-caption-wrap"><a href="index.html" class="brand-link mbr-black display-5"> L'agence PHP</a></span>
                 </div>
             </div>
-            <div class="menu-content-right">
-                <div class="info-widget">
-                    <span class="widget-icon mbr-iconfont mbri-mobile2" style="color: rgb(59, 90, 187); fill: rgb(59, 90, 187);"></span>
-                    <div class="widget-content display-4">
-                        <p class="widget-title mbr-fonts-style display-4">+ 33 7 79 82 63 98</p>
-                        <p class="widget-text mbr-fonts-style display-4">+ 33 7 98 70 76 89</p>
-                    </div>
-                </div>
-                <div class="info-widget">
-                    <span class="widget-icon mbr-iconfont mbri-clock" style="color: rgb(59, 90, 187); fill: rgb(59, 90, 187);"></span>
-                    <div class="widget-content display-4">
-                        <p class="widget-title mbr-fonts-style display-4">Lundi - Vendredi : 9:00 - 18:00</p>
-                        <p class="widget-text mbr-fonts-style display-4">Samdedi - Dimanche : Fermé</p>
-                    </div>
-                </div>
 
-                <div class="navbar-buttons mbr-section-btn"><a class="btn btn-lg btn-primary-outline display-4" href="index.html#extForm21-1"> Nous contacter</a></div>
-
-            </div>
         </div>
         <div class="menu-bottom">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown js-float-line" data-app-modern-menu="true"><li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="#top">
-                            Accueil</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link link mbr-black text-white dropdown-toggle display-4" href="#" data-toggle="dropdown-submenu" aria-expanded="true">Voyages</a>
-                        <div class="dropdown-menu">
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                            <a class="mbr-black text-white dropdown-item display-4" href="https://google.com" aria-expanded="false">New Item</a>
-                        </div>
+                <ul class="navbar-nav nav-dropdown js-float-line" data-app-modern-menu="true">
+                    <li class="nav-item">
+                        <a class="nav-link link mbr-black text-white display-4" href="/index.php">Accueil</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="https://google.fr">Connexion</a>
+                        <?php
+                        if(isset($_SESSION['Mail'])){
+                         ?>
+                        <a class="nav-link link mbr-black text-white display-4" href="moncompte.php">Mes reservations</a>
+                        <?php
+                        } else {
+                         ?>
+                         <a class="nav-link link mbr-black text-white display-4" href="login.php">Connexion/Inscription</a>
+                         <?php
+                         }
+                          ?>
+                        </li>
+                        <li class="nav-item">
+                        <?php
+                        if(isset($_SESSION['Mail'])){
+                       ?>
+                      <a class="nav-link link mbr-black text-white display-4" href="logout.php">Déconnexion</a>
+                        <?php
+                      }
+                        ?>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="https://google.fr">
-                            Inscription</a>
-                    </li></ul>
+                </ul>
 
             </div>
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -62,11 +62,6 @@ $req = mysqli_query($bdd, $sql);
                             L'agence PHP</a></span>
                 </div>
             </div>
-            <div class="menu-content-right">
-
-                <div class="navbar-buttons mbr-section-btn"><a class="btn btn-lg btn-primary-outline display-4" href="index.html#extForm21-1"> Nous contacter</a></div>
-
-            </div>
         </div>
         <div class="menu-bottom">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
