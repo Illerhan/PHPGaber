@@ -97,12 +97,22 @@
 
       }
 
-      public function AjoutLieu(){
-
+      public function AjoutLieu($nom, $ville, $pays, $desc, $prix){
+        $bdd=databaseconnexion();
+        $sql = 'INSERT INTO `lieuavisiter` (`NomLieu`, `Ville`, `Pays`, `Descriptif`, `PrixVisite`) VALUES ("'.$nom.'", "'.$ville.'", "'.$pays.'", "'.$desc.'", "'.$prix.'");';
+        $req = mysqli_query($bdd, $sql);
       }
 
-      public function SupLieu(){
+      public function ModifLieu($nom, $ville, $pays, $desc, $prix, $getnom, $getville, $getpays){
+        $bdd=databaseconnexion();
+        $sql2 = 'UPDATE lieuavisiter SET NomLieu="'.$nom.'",Ville="'.$ville.'",Pays="'.$pays.'",Descriptif="'.$desc.'",PrixVisite="'.$prix.'" WHERE NomLieu="'.$getnom.'" and Ville="'.$getville.'" and Pays="'.$getpays.'"';
+        $req2 = mysqli_query($bdd, $sql2);
 
+      }
+      public function SupLieu($nom,$ville,$pays){
+        $bdd=databaseconnexion();
+        $sql2 = 'DELETE from lieuavisiter where NomLieu = "'.$nom.'" and Ville= "'.$ville.'" and Pays = "'.$pays.'" ';
+        $req2 = mysqli_query($bdd, $sql2);
       }
 
   }

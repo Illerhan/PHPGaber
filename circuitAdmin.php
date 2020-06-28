@@ -3,6 +3,7 @@
 require 'database/BDConnection.php';
 require 'class/circuit.class.php';
 require 'class/reservation.class.php';
+require 'class/lieu.class.php';
 
 $bdd=databaseconnexion();
 
@@ -121,3 +122,78 @@ if($Admin<1){
         </div>
     </nav>
 </section>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+          <h1>Crée circuit</h1>
+<!--Formbuilder Form-->
+          <form  method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
+            <div class="dragArea form-row">
+              <div class="col-lg-12 col-md-12 col-sm-12 form-group" style="">
+                <br>
+                <div class="form-row">
+                  <div class="col">
+                    <input type="text" name="ville-depart" placeholder="Ville départ" data-form-field="circuit-depart" class="form-control text-multiple" value="" id="circuit-depart-extAccordion3-5">
+                  </div>
+                  <div class="col">
+                    <input type="text" name="ville-arrive" placeholder="Ville arrivé" data-form-field="circuit-arrive" class="form-control text-multiple" value="" id="circuit-arrive-extAccordion3-5">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <input type="text" name="pays-depart" placeholder="Pays départ" data-form-field="circuit-depart" class="form-control text-multiple" value="" id="circuit-depart-extAccordion3-5">
+                  </div>
+                  <div class="col">
+                    <input type="text" name="pays-arrive" placeholder="Pays arrivé" data-form-field="circuit-arrive" class="form-control text-multiple" value="" id="circuit-arrive-extAccordion3-5">
+                  </div>
+                </div>
+              </div>
+              <div data-for="circuit-desc" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                <textarea name="circuit-desc" placeholder="Description du voyage" data-form-field="circuit-desc" class="form-control display-7" id="circuit-desc-extAccordion3-5"></textarea>
+              </div>
+              <div data-for="circuit-duree" class="col-lg-12 col-md-12 col-sm-12 form-group" style="">
+                <input type="number" name="circuit-duree" placeholder="Durée en jours" max="100" min="1" step="1" data-form-field="circuit-duree" class="form-control display-7" value="" id="circuit-duree-extAccordion3-5">
+              </div>
+              <div data-for="circuit-duree" class="col-lg-12 col-md-12 col-sm-12 form-group" style="">
+                <input type="number" name="place-dispo" placeholder="Nombres de places" max="100" min="1" step="1" data-form-field="circuit-duree" class="form-control display-7" value="" id="circuit-duree-extAccordion3-5">
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="circuit-prix">
+                <input type="number" name="circuit-prix" placeholder="Prix inscription" max="100000" min="0" step="1" data-form-field="circuit-prix" class="form-control display-7" value="" id="circuit-prix-extAccordion3-5">
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <hr>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p class="mbr-fonts-style display-7">Ajouter des étapes</p>
+              </div>
+              <?php
+              $sql = 'SELECT * from lieuavisiter';
+              $req = mysqli_query($bdd, $sql);
+
+              if (!empty($req)) {
+                $i=0;
+                while($donnees = mysqli_fetch_array($req)){
+                  $lieu = new lieu($donnees);
+                  $i+=1
+
+              ?>
+              <div class="col">
+                <input type="text" name="etape" placeholder="<?= $lieu->getnom()?>" data-form-field="circuit-depart" class="form-control text-multiple" value="<?= $lieu->getnom()?>" id="circuit-depart-extAccordion3-5">
+              </div>
+              <?php
+            }
+          }?>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <button type="submit" class="btn btn-primary display-7">Créer</button>
+              </div>
+            </div>
+          </form><!--Formbuilder Form-->
+        </div>
+      </div>
+    </div>

@@ -86,10 +86,11 @@ INSERT INTO `circuit` (`IdCircuit`, `Descriptif`, `VilleDepart`, `PaysDepart`, `
 (8, 'Voyage a traver les océans', 'Paris', 'France', 'Sydney', '2020-10-03', 10, '96:00:00', '121');
 
 
-INSERT INTO `client` (`IdClient`, `Nom`, `Prenom`, `DateNaissance`) VALUES
-(1, 'Martin', 'Jeanne', '1980-04-15'),
+INSERT INTO `client` (`IdClient`, `Nom`, `Prenom`, `DateNaissance`, `Email`, `Password`, `Grade`) VALUES
+(1, 'Martin', 'Jeanne', '1980-04-15', 'martin@gmail.com', 'Martin'),
 (2, 'Soleo', 'Ginette', '1960-12-20'),
 (3, 'Dupont', 'Martin', '1975-03-29');
+(4, 'admin', 'admin', '2020-01-01', 'admin@gmail.com', 'admin', 1)
 
 
 INSERT INTO `etape` (`IdCircuit`, `Ordre`, `DateEtape`, `Duree`, `NomLieu`, `Ville`, `Pays`) VALUES

@@ -43,11 +43,11 @@
     }
 
 //--------------------------------------------
-    public function getdescription(){
+    public function getdesc(){
       return $this->description;
     }
 
-    public function setdesctiption(){
+    public function setdesc(){
 
     }
 

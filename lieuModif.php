@@ -2,7 +2,8 @@
 <?php
 require 'database/BDConnection.php';
 require 'class/circuit.class.php';
-require 'class/reservation.class.php';
+require 'class/client.class.php';
+require 'class/lieu.class.php';
 
 $bdd=databaseconnexion();
 
@@ -121,3 +122,72 @@ if($Admin<1){
         </div>
     </nav>
 </section>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<?php
+$sql = 'SELECT * from lieuavisiter where nomlieu="'.$_GET['nom'].'" AND ville="'.$_GET['ville'].'" and pays="'.$_GET['pays'].'"';
+$req = mysqli_query($bdd, $sql);
+
+if (!empty($req)) {
+
+  while($donnees = mysqli_fetch_array($req)){
+    $lieu = new lieu($donnees);
+
+
+?>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+          <form  method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
+            <div class="dragArea form-row">
+              <div class="col-lg-12 col-md-12 col-sm-12 form-group" style="">
+                <br>
+                <div class="form-row">
+                  <div class="col">
+                    <input type="text" value="<?= $lieu->getnom(); ?>" name="nom" placeholder="<?= $lieu->getnom(); ?>" data-form-field="circuit-depart" class="form-control text-multiple" value="" id="circuit-depart-extAccordion3-5">
+                  </div>
+                  <div class="col">
+                    <input type="text" name="ville" value="<?= $lieu->getville(); ?>"placeholder="<?= $lieu->getville(); ?>" data-form-field="circuit-arrive" class="form-control text-multiple" value="" id="circuit-arrive-extAccordion3-5">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <input type="text" name="pays" value="<?= $lieu->getpays(); ?>"placeholder="<?= $lieu->getpays(); ?>" data-form-field="circuit-depart" class="form-control text-multiple" value="" id="circuit-depart-extAccordion3-5">
+                  </div>
+                </div>
+              </div>
+              <div data-for="circuit-desc" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                <textarea name="desc" placeholder="<?= $lieu->getdesc(); ?>" data-form-field="circuit-desc" class="form-control display-7" id="circuit-desc-extAccordion3-5"><?= $lieu->getdesc(); ?></textarea>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="circuit-prix">
+                <input type="number"value="<?= $lieu->getprix() ?>"name="prix" placeholder="<?= $lieu->getprix() ?>" max="100000" min="0" step="1" data-form-field="circuit-prix" class="form-control display-7" value="" id="circuit-prix-extAccordion3-5">
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <button type="submit" class="btn btn-primary display-7">Modifier</button>
+                <?php
+if (!empty($_POST['nom']) and !empty($_POST['ville']) and !empty($_POST['pays']) and !empty($_POST['desc']) and !empty($_POST['prix']) and !empty($_GET['nom']) and !empty($_GET['ville']) and !empty($_GET['pays'])){
+  $sql = 'SELECT * FROM client WHERE IdClient=4';
+  $req = mysqli_query($bdd, $sql);
+  $donnees = mysqli_fetch_array($req);
+  $admin = new Admin($donnees);
+  $admin->ModifLieu($_POST['nom'],$_POST['ville'],$_POST['pays'],$_POST['desc'],$_POST['prix'],$_GET['nom'],$_GET['ville'],$_GET['pays']);
+
+?>
+<meta http-equiv="refresh" content="0.1;url=lieuModif.php?nom=<?= $lieu->getnom()?>&amp;ville=<?= $lieu->getville()?>&amp;pays=<?= $lieu->getpays()?>" />
+<?php
+}
+?>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  <?php
+  }
+}
+  ?>
