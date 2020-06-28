@@ -71,10 +71,28 @@
 
 //--------------------------------------------
 
-    public function reserver($idcircuit){
+    public function reserver($idcircuit, $benef1, $benef2){
       $bdd=databaseconnexion();
-      $sql = 'INSERT INTO `reservation` (`DateReservation`, `EtatReservation`, `IdCircuit`, `IdBene`, `IdClient`) VALUES ("2020-09-17", "en attente", "'.$idcircuit.'", 3, "'.$this->idclient.'");';
+      $today = date("y-m-d");
+      $codeid=rand(100000,999999);
+      while(mysqli_num_rows(mysqli_query($bdd,"SELECT * FROM reservation WHERE IdReservation='$codeid'"))!=0){//si mysqli_num_rows retourne pas 0
+          $codeid=rand(100000,999999);
+      }
+
+      $sql = 'INSERT INTO `reservation` (`IdReservation`, `DateReservation`, `EtatReservation`, `IdCircuit`, `IdBene`, `IdClient`) VALUES ("'.$codeid.'", "'.$today.'", "en attente", "'.$idcircuit.'", 3, "'.$this->idclient.'");';
       $req = mysqli_query($bdd, $sql);
+
+      if ($benef1==0) {
+      } else {
+        $sql = 'INSERT INTO `beneficiaire` (`NomBene`, `PrenomBene`, `IdReservation`) VALUES ("'.$benef1[0].'", "'.$benef1[1].'", "'.$codeid.'");';
+        $req = mysqli_query($bdd, $sql);
+      }
+
+      if ($benef2==0) {
+      } else {
+        $sql = 'INSERT INTO `beneficiaire` (`NomBene`, `PrenomBene`, `IdReservation`) VALUES ("'.$benef2[0].'", "'.$benef2[1].'", "'.$codeid.'");';
+        $req = mysqli_query($bdd, $sql);
+      }
 
     }
 }

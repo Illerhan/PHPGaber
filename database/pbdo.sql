@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `beneficiaire` (
   `IdBene` int(11) NOT NULL AUTO_INCREMENT,
   `NomBene` varchar(50) DEFAULT NULL,
   `PrenomBene` varchar(50) DEFAULT NULL,
-  `DateNaissanceBene` date DEFAULT NULL,
+  FOREIGN KEY (IdReservation) REFERENCES reservation (IdReservation),
   PRIMARY KEY (`IdBene`)
 );
 
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `circuit` (
   `PaysArrivee` varchar(50) DEFAULT NULL,
   `DateDepart` date DEFAULT NULL,
   `NbrPlaceDispo` int(11) DEFAULT NULL,
-  `Duree` time DEFAULT NULL,
+  `Duree` int(11) DEFAULT NULL,
   `PrixInscription` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`IdCircuit`)
 );
@@ -63,11 +63,9 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `DateReservation` date DEFAULT NULL,
   `EtatReservation` varchar(25) DEFAULT NULL,
   `IdCircuit` int(11) NOT NULL,
-  `IdBene` int(11) NOT NULL,
   `IdClient` int(11) NOT NULL,
   PRIMARY KEY (`IdReservation`),
   FOREIGN KEY (IdCircuit) REFERENCES circuit (IdCircuit),
-  FOREIGN KEY (IdBene) REFERENCES beneficiaire (IdBene),
   FOREIGN KEY (IdClient) REFERENCES client (IdClient)
 );
 

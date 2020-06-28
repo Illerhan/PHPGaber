@@ -137,17 +137,17 @@ session_start();
 
                             <div class="ico-box">
                                 <span class="px-2 mbr-iconfont mbr-iconfont-social mbri-letter"></span>
-                                <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $circuit->getnbrplacedispo() ?></p>
+                                <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $circuit->getnbrplacedispo() ?> disponibles</p>
                             </div>
 
                             <div class="ico-box">
                                 <span class="px-2 mbr-iconfont mbr-iconfont-social mbri-letter"></span>
-                                <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $circuit->getduree() ?></p>
+                                <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Voyage de <?php echo $circuit->getduree() ?> Jours</p>
                             </div>
 
                             <div class="ico-box">
                                 <span class="px-2 mbr-iconfont mbr-iconfont-social mbri-cash"></span>
-                                <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $circuit->getprixinscription() ?></p>
+                                <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $circuit->getprixinscription() ?> €</p>
                             </div>
                             <?php
                               $sql = 'SELECT * FROM client WHERE Email="'.$_SESSION['Mail'].'"';
@@ -163,16 +163,72 @@ session_start();
                               $client = new client($donnees);
 
                               if (!empty($_POST["reservation"])) {
-                                $client->reserver($circuit->getIdcircuit());
+
+                                $benef1=0;
+                                $benef2=0;
+
+                                if (!empty($_POST["nom1"])) {
+                                $benef1 = array($_POST["nom1"],$_POST["prenom1"]);
+                                }
+
+                                if (!empty($_POST["nom2"])) {
+                                $benef2 = array($_POST["nom2"],$_POST["prenom2"]);
+                                }
+
+                                $client->reserver($circuit->getIdcircuit(), $benef1, $benef2);
                                 ?>
-                            <meta http-equiv="refresh" content="0.1;url=moncompte.php" />
+                                <meta http-equiv="refresh" content="0.1;url=moncompte.php" />
                             <?php
                               }
                               ?>
 
-                            <form method="post">
-                              <input name="reservation" type="submit" value="Réservation">
-                            </form>
+
+                            <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#ModalModif">
+                              Réserver
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="ModalModif" tabindex="-1" role="dialog" aria-labelledby="ModalModifLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalModif">Ajouter des bénéficiraires en plus de vous si vous le souhaiter</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <form method="post">
+                                        <div class="form-group">
+                                          <label for="exampleInputPassword1">Nom bénéficiaire 1</label>
+                                          <input name="nom1" type="text" class="form-control" id="exampleInputPassword1">
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="exampleInputPassword1">Prenom bénéficiaire 1</label>
+                                          <input name="prenom1" type="text" class="form-control" id="exampleInputPassword1">
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label for="exampleInputPassword1">Nom bénéficiaire 2</label>
+                                          <input name="nom2" type="text" class="form-control" id="exampleInputPassword1">
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="exampleInputPassword1">Prenom bénéficiaire 2</label>
+                                          <input name="prenom2" type="text" class="form-control" id="exampleInputPassword1">
+                                        </div>
+
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                    <input type="submit" class="btn btn-primary" name="reservation"></input>
+                                  </div>
+                                </form>
+                                </div>
+                              </div>
+                            </div>
+
+
+
+
                         </div>
                     </div>
                 </div>
