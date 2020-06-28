@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `DateNaissance` date DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
   `Password` varchar(50) DEFAULT NULL,
+  `Grade` boolean DEFAULT NULL,
   PRIMARY KEY (`IdClient`)
 );
 
