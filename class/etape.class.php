@@ -1,5 +1,5 @@
 <?php
-  class etape {
+  class Etape {
     public $idcircuit;
     public $ordre;
     public $date;
@@ -14,7 +14,7 @@
         $this->ordre = $tab["Ordre"];
         $this->date = $tab["DateEtape"];
         $this->duree = $tab["Duree"];
-        $this->nom = $tab["NomVille"];
+        $this->nom = $tab["NomLieu"];
         $this->ville = $tab["Ville"];
         $this->pays = $tab["Pays"];
     }
@@ -29,7 +29,7 @@
 
     //--------------------------------------------
         public function getordre(){
-          return $this->prix;
+          return $this->ordre;
         }
 
         public function setordre(){
@@ -38,7 +38,7 @@
 
     //--------------------------------------------
         public function getdate(){
-          return $this->description;
+          return $this->date;
         }
 
         public function setdate(){
@@ -47,7 +47,7 @@
 
     //--------------------------------------------
         public function getduree(){
-          return $this->prix;
+          return $this->duree;
         }
 
         public function setprix(){

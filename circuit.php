@@ -3,6 +3,7 @@
 require 'database/BDConnection.php';
 require 'class/circuit.class.php';
 require 'class/client.class.php';
+require 'class/etape.class.php';
 
 $bdd=databaseconnexion();
 session_start();
@@ -191,6 +192,17 @@ session_start();
 
 </section>
 
+<?php
+
+$sql = 'SELECT * FROM etape WHERE IdCircuit="'.$_GET['idcircuit'].'" ORDER BY ordre';
+$req = mysqli_query($bdd, $sql);
+
+if (!empty($req)) {
+  while($donnees = mysqli_fetch_array($req)) {
+    $etape = new Etape($donnees);
+
+ ?>
+
 <section class="features7 cid-s32A9hTOsg" id="features07-b">
 
     <div class="container">
@@ -204,8 +216,8 @@ session_start();
                     <div class="card-img">
                         <img src="assets/images/01.jpg" title="" alt="">
                         <div class="card-box">
-                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">$420,000
-                                <br>$734 / sq m</h4>
+                            <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">
+                                <br>Etape numero : <?php echo $etape->getordre() ?></h4>
 
                             <div class="mbr-iconfont mbr-iconfont-social icobig mbri-star" media-simple="true"></div>
 
@@ -216,10 +228,10 @@ session_start();
 
                         <div class="text-box">
                             <div>
-                                <h4 class="card-title2 mbr-fonts-style mbr-normal align-left display-5">Summer Apartment</h4>
+                                <h4 class="card-title2 mbr-fonts-style mbr-normal align-left display-5">Etape : <?php echo $etape->getnom() ?></h4>
                                 <div class="ico-box">
                                     <span class="pr-2 mbr-iconfont mbr-iconfont-social ico2 mbri-pin"></span>
-                                    <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">New York, &nbsp;Willis Avenue</p>
+                                    <p class="mbr-text mbr-fonts-style phone mbr-normal display-4"><?php echo $etape->getpays() ?></p>
                                 </div>
                             </div>
 
@@ -231,16 +243,10 @@ session_start();
 
                         </div>
                         <div class="p-box">
-                            <p class="mbr-text mbr-fonts-style mbr-normal card-text display-7">700 sq m
+                            <p class="mbr-text mbr-fonts-style mbr-normal card-text display-7">Durée : <?php echo $etape->getduree() ?>
                                 <br>
                             </p>
-                            <p class="mbr-text mbr-fonts-style mbr-normal card-text display-7">Rooms 4
-                                <br>
-                            </p>
-                            <p class="mbr-text mbr-fonts-style mbr-normal card-text display-7">2 Bedrooms
-                                <br>
-                            </p>
-                            <p class="mbr-text mbr-fonts-style mbr-normal card-text display-7">2 Bathrooms
+                            <p class="mbr-text mbr-fonts-style mbr-normal card-text display-7">Ville : <?php echo $etape->getville() ?>
                                 <br>
                             </p>
                         </div>
@@ -248,12 +254,7 @@ session_start();
                         <div class="ico-wrap">
                             <div class="ico-box">
                                 <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-user"></span>
-                                <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Tom Wilson</p>
-                            </div>
-
-                            <div class="ico-box">
-                                <span class="px-2 mbr-iconfont mbr-iconfont-social ico2 mbri-calendar"></span>
-                                <p class="mbr-text pr-2 mbr-fonts-style phone mbr-normal display-4">23.10.18</p>
+                                <p class="mbr-text mbr-fonts-style phone mbr-normal display-4">Date depart : <?php echo $etape->getdate() ?></p>
                             </div>
 
 
@@ -267,6 +268,11 @@ session_start();
         </div>
     </div>
 </section>
+
+<?php
+  }
+}
+  ?>
 
 
   <script src="assets/web/assets/jquery/jquery.min.js"></script>
