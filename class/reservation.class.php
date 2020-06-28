@@ -1,21 +1,22 @@
 <?php
 
-class client {
+class reservation {
   public $idreservation;
   public $datereservation;
   public $etasreservaiton;
   public $idcircuit;
   public $idbene;
+  public $idclient;
 
 
 
   public function __construct($tab) {
-      $this->idreservation = $tab["IdReservation"]
+      $this->idreservation = $tab["IdReservation"];
       $this->datereservation = $tab["DateReservation"];
-      $this->etasreservation = $tab["EtasReservation"];
-      $this->datenaissance = $tab["DateNaissance"];
+      $this->etasreservation = $tab["EtatReservation"];
       $this->idcircuit = $tab["IdCircuit"];
       $this->idbene = $tab["IdBene"];
+      $this->idcliebt = $tab["IdClient"];
   }
 //------------------------------------------
   public function getidreservation(){
@@ -56,6 +57,8 @@ class client {
 
   public function setidbene(){
 
-    }
+  }
+
+}
 
  ?>

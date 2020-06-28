@@ -5,6 +5,8 @@ require 'class/circuit.class.php';
 
 $bdd=databaseconnexion();
 
+session_start();
+
 ?>
 
 <html>
@@ -84,11 +86,30 @@ $bdd=databaseconnexion();
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="https://google.fr">Connexion</a>
+                        <?php
+                        if(isset($_SESSION['Mail'])){
+                         ?>
+                        <a class="nav-link link mbr-black text-white display-4" href="moncompte.php">Mes reservations</a>
+                        <?php
+                      } else {
+                         ?>
+                         <a class="nav-link link mbr-black text-white display-4" href="login.php">Connexion</a>
+                         <?php
+                         }
+                          ?>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link mbr-black text-white display-4" href="https://google.fr">
-                            Inscription</a>
+                      <?php
+                      if(isset($_SESSION['Mail'])){
+                       ?>
+                      <a class="nav-link link mbr-black text-white display-4" href="logout.php">Déconnexion</a>
+                      <?php
+                    } else {
+                       ?>
+                       <a class="nav-link link mbr-black text-white display-4" href="login.php">Inscription</a>
+                       <?php
+                       }
+                        ?>
                     </li></ul>
 
             </div>
