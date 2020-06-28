@@ -5,42 +5,83 @@
     $bdd=databaseconnexion();
 
     session_start();
-    //si une session est déjà "isset" avec ce visiteur, on l'informe:
     if(isset($_SESSION['Mail'])){
         echo "<center>Vous êtes déjà connecté, vous pouvez accéder à l'espace membre en <a href='indexcandidat.php'>cliquant ici</a>.</center>";
     } else {
-        //si le formulaire est envoyé ("envoyé" signifie que le bouton submit est cliqué)
         if(isset($_POST['valider'])){
-            //vérifie si tous les champs sont bien pris en compte:
             if(!isset($_POST['Mail'],$_POST['mdp'])){
                 echo "Un des champs n'est pas reconnu.";
             } else {
-                //tous les champs sont précisés, on regarde si le membre est inscrit dans la bdd:
-                //d'abord il faut créer une connexion à la base de données dans laquelle on souhaite regarder:
                 if(!$bdd) {
                     echo "Erreur connexion BDD";
-                    //Dans ce script, je pars du principe que les erreurs ne sont pas affichées sur le site, vous pouvez donc voir qu'elle erreur est survenue avec mysqli_error(), pour cela décommentez la ligne suivante:
-                    //echo "Erreur retournée: ".mysqli_error($mysqli);
                 } else {
-                    //on défini nos variables:
-                    $Mail=htmlentities($_POST['Mail'],ENT_QUOTES,"UTF-8");//htmlentities avec ENT_QUOTES permet de sécuriser la requête pour éviter les injections SQL, UTF-8 pour dire de convertir en ce format
+                    $Mail=htmlentities($_POST['Mail'],ENT_QUOTES,"UTF-8");
                     $mdp=$_POST['mdp'];
                     $req=mysqli_query($bdd,"SELECT * FROM client WHERE Email='$Mail' AND Password='$mdp'");
-                    //on regarde si le membre est inscrit dans la bdd:
+
                     if(mysqli_num_rows($req)!=1){
                       $message='Pseudo ou mot de passe incorrect !';
                       echo '<script type="text/javascript">window.alert("'.$message.'");</script>';
                     } else {
-                        //pseudo et mot de passe sont trouvé sur une même colonne, on ouvre une session:
+
                         $_SESSION['Mail']=$Mail;
                         header("Refresh: 0.1; url=index.php");
-                        $TraitementFini=true;//pour cacher le formulaire
+                        $TraitementFini=true;
                     }
                 }
             }
         }
-        if(!isset($TraitementFini)){//quand le membre sera connecté, on définira cette variable afin de cacher le formulaire
-            ?>
+        if(!isset($TraitementFini)){
+
+
+
+
+          if(isset($_POST['inscrire'])){
+              //vérifie si tous les champs sont bien  pris en compte:
+              //on peut combiner isset() pour valider plusieurs champs à la fois
+              if(!isset($_POST['nom'],$_POST['prenom'],$_POST['date-naissance'],$_POST['mail-inscription'],$_POST['password-inscription'])){
+                  echo "Un des champs n'est pas reconnu.";
+              } else {
+                          //on vérifie que l'adresse est correcte:
+                          if(!preg_match("#^[a-z0-9_-]+((\.[a-z0-9_-]+){1,})?@[a-z0-9_-]+((\.[a-z0-9_-]+){1,})?\.[a-z]{2,30}$#i",$_POST['mail-inscription'])){
+                              //cette preg_match est un petit peu complexe, je vous invite à regarder l'explication détaillée sur mon site c2script.com
+                              echo "L'adresse mail est incorrecte.";
+                              //normalement l'input type="email" vérifie que l'adresse mail soit correcte avant d'envoyer le formulaire mais il faut toujours être prudent et vérifier côté serveur (ici) avant de valider définitivement
+                          } else {
+                              if(strlen($_POST['mail-inscription'])<7 or strlen($_POST['mail-inscription'])>50){
+                                  echo "Le mail doit être d'une longueur minimum de 7 caractères et de 50 maximum.";
+                              } else {
+                                  if(!$bdd) {
+                                      echo "Erreur connexion BDD";
+                                      //Dans ce script, je pars du principe que les erreurs ne sont pas affichées sur le site, vous pouvez donc voir qu'elle erreur est survenue avec mysqli_error(), pour cela décommentez la ligne suivante:
+                                      //echo "Erreur retournée: ".mysqli_error($mysqli);
+                                  } else {
+                                      $Nom=htmlentities($_POST['nom'],ENT_QUOTES,"UTF-8");
+                                      $Prenom=htmlentities($_POST['prenom'],ENT_QUOTES,"UTF-8");
+                                      $DateNai=htmlentities($_POST['date-naissance'],ENT_QUOTES,"UTF-8");
+                                      $Mdp=$_POST['password-inscription'];// la fonction md5() convertie une chaine de caractères en chaine de 32 caractères d'après un algorithme PHP, cf doc
+                                      $Mail=htmlentities($_POST['mail-inscription'],ENT_QUOTES,"UTF-8");
+                                      if(mysqli_num_rows(mysqli_query($bdd,"SELECT * FROM client WHERE Email='$Mail'"))!=0){//si mysqli_num_rows retourne pas 0
+                                          echo "Ce pseudo est déjà utilisé par un autre membre, veuillez en choisir un autre svp.";
+                                      } else {
+                                          //insertion du membre dans la base de données:
+                                          if(mysqli_query($bdd,"INSERT INTO client SET Nom='$Nom', Prenom='$Prenom', DateNaissance='$DateNai', Email='$Mail', Password='$Mdp', Grade=0")){
+                                              echo "<center>Inscrit avec succès! Vous pouvez vous connecter: <a href='login.php'>Cliquez ici</a>.</center>";
+                                              $TraitementFini=true;//pour cacher le formulaire
+                                          } else {
+                                              echo "Une erreur est survenue, merci de réessayer ou contactez-nous si le problème persiste.";
+                                              //echo "Erreur retournée: ".mysqli_error($mysqli);
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  }
+
+
+          if(!isset($TraitementFini)){
+                ?>
 
             <!DOCTYPE html>
             <html>
@@ -200,7 +241,7 @@
                     <div class="row">
                         <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
             <!--Formbuilder Form-->
-            <form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="Sgtix6DTWWxyij0pU2EeWDjtYiFVXbLVPO3g+nZaz7IsjMhp7iOz2hBAEfYXuWIsvT4lbZJMlwRs1oqvFaslvOHiN1seTDxhb5M5JlcNZl+N4TneWx/41NQ1RdvrA9An.RE9lYqVZB3VddSVVkG8QdTGW0hc0x6t9tBx+lxp8ThjCG8LWxGbgaPh3byLAUE8GQBi0RQufqMSrNBslBn6fpKzhAD4SO4yVfqr0oLDJpEG2itixdUTXVId6UtoaV6lN">
+            <form action="login.php" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
             <div class="form-row">
             <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Thanks for filling out the form!</div>
             <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some problem!</div>
@@ -219,16 +260,16 @@
             <input type="text" name="prenom" placeholder="Prenom" data-form-field="prenom" class="form-control display-7" required="required" value="" id="prenom-formbuilder-f">
             </div>
             <div data-for="date" class="col-lg-12 col-md-12 col-sm-12 form-group">
-            <input type="date" name="date" data-form-field="date" class="form-control display-7" value="2018-07-22" id="date-formbuilder-f">
+            <input type="date" name="date-naissance" data-form-field="date" class="form-control display-7" value="2018-07-22" id="date-formbuilder-f">
             </div>
             <div data-for="email-inscription" class="col-lg-12 col-md-12 col-sm-12 form-group" style="">
-            <input type="email" name="email-inscription" placeholder="Email" data-form-field="email-inscription" class="form-control display-7" value="" id="email-inscription-formbuilder-f">
+            <input type="email" name="mail-inscription" placeholder="Email" data-form-field="email-inscription" class="form-control display-7" value="" id="email-inscription-formbuilder-f">
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="password-inscription">
             <input type="password" name="password-inscription" placeholder="Mot de passe" data-form-field="password-inscription" class="form-control display-7" required="required" value="" id="password-inscription-formbuilder-f">
             </div>
             <div class="col-auto">
-            <button type="submit" class="btn btn-primary display-7">Inscription</button>
+            <button name="inscrire" type="submit" class="btn btn-primary display-7">Inscription</button>
             </div>
             </div>
             </form><!--Formbuilder Form-->
@@ -257,6 +298,7 @@
             </html>
 
     <?php
+  }
 }
 }
 ?>
