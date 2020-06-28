@@ -111,26 +111,22 @@ session_start();
         <div class="row justify-content-center">
             <div class="media-container-column col-lg-12 col-md-10 col-sm-12 align-center" data-form-type="formoid">
                 <!---Formbuilder Form--->
-                <form  method="POST" class="mbr-form form-with-styler" data-form-title="Mobirise Form">
+                <form  method="POST" class="mbr-form form-with-styler" action="index.php">
 
                     <div class="dragArea row">
-                        <div class="col-lg-3 col-md-6 form-group" data-for="type">
-                            <select name="type" data-form-field="Type" class="form-control display-7" placeholder="Nombre de personne" id="type-header2-3">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
+                        <div data-for="message" class="col-lg-2 col-md-4 form-group">
+                            <input name="date1" type="date" name="message" placeholder="" data-form-field="Message" class="form-control input display-7" id="message-header2-3">
                         </div>
                         <div data-for="message" class="col-lg-2 col-md-4 form-group">
-                            <input type="text" name="message" placeholder="Budget   €" data-form-field="Message" class="form-control input display-7" id="message-header2-3">
+                            <input name="date2" type="date" name="message" placeholder="" data-form-field="Message" class="form-control input display-7" id="message-header2-3">
                         </div>
-                        <div data-for="message" class="col-lg-4 col-md-9 form-group">
-                            <input type="text" name="message" placeholder="Entre un adresse si vous souhaitez..." data-form-field="Message" class="form-control input display-7" id="message-header2-3">
+                        <div data-for="message" class="col-lg-2 col-md-4 form-group">
+                            <input name="prix" type="text" name="message" placeholder="Prix max" data-form-field="Message" class="form-control input display-7" id="message-header2-3">
                         </div>
-                        <div class="col-auto input-group-btn"><button type="submit" class="btn btn-form btn-secondary display-7" href="https://google.fr">Rechercher</button></div>
+                        <div data-for="message" class="col-lg-2 col-md-4 form-group">
+                            <input name="place" type="text" name="message" placeholder="Place minim" data-form-field="Message" class="form-control input display-7" id="message-header2-3">
+                        </div>
+                        <div name"filtrer" class="col-auto input-group-btn"><button name="filtrer" type="submit" class="btn btn-form btn-secondary display-7">Rechercher</button></div>
                     </div>
                 </form>
             </div>
@@ -146,13 +142,31 @@ session_start();
 
 
           <?php
+          if (isset($_POST['filtrer'])) {
 
-          $sql = 'SELECT c.IdCircuit, Descriptif, VilleDepart, PaysDepart, VilleArrivee, PaysArrivee, DateDepart, NbrPlaceDispo, c.Duree, PrixInscription, count(e.IdCircuit) as NbrEtape from circuit c, etape e where c.IdCircuit= e.IdCircuit GROUP BY c.IdCircuit;';
-          $req = mysqli_query($bdd, $sql);
 
-          if (!empty($req)) {
-            while($donnees = mysqli_fetch_array($req)){
+            $sql = 'SELECT DateDepart, Duree FROM circuit';
+            $req = mysqli_query($bdd, $sql);
+
+              while($donnees = mysqli_fetch_array($req)){
+                $jour=$donnees['DateDepart'];
+                $DateArrive=date('Y-m-d', strtotime($jour. ' + '. $donnees['Duree'].' days'));
+
+                $sql2 = 'SELECT c.IdCircuit, Descriptif, VilleDepart, PaysDepart, VilleArrivee, PaysArrivee, DateDepart, NbrPlaceDispo, c.Duree, PrixInscription, count(e.IdCircuit) as NbrEtape from circuit c, etape e where c.IdCircuit= e.IdCircuit AND c.PrixInscription<"'.$_POST['prix'].'" AND c.NbrPlaceDispo>"'.$_POST['place'].'" AND c.DateDepart BETWEEN "'.$_POST['date1'].'" and "'.$_POST['date2'].'" AND "'.$_POST['date2'].'">"'.$DateArrive.'"  GROUP BY c.IdCircuit;';
+                $req2 = mysqli_query($bdd, $sql2);
+            } } else {
+
+
+              echo "fuck";
+          $sql2 = 'SELECT c.IdCircuit, Descriptif, VilleDepart, PaysDepart, VilleArrivee, PaysArrivee, DateDepart, NbrPlaceDispo, c.Duree, PrixInscription, count(e.IdCircuit) as NbrEtape from circuit c, etape e where c.IdCircuit= e.IdCircuit GROUP BY c.IdCircuit;';
+          $req2 = mysqli_query($bdd, $sql2); }
+
+
+          if (!empty($req2)) {
+            while($donnees = mysqli_fetch_array($req2)){
               $circuit = new Circuit($donnees);
+
+
 
           ?>
             <div class="card p-3 col-12 col-md-6 col-lg-4">
@@ -164,7 +178,7 @@ session_start();
                         <div class="card-box">
                             <h4 class="card-title mbr-fonts-style mbr-white mbr-bold display-7">12 €&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 &nbsp; &nbsp;
-                                <br>DUREE</h4>
+                                <br><?= $circuit->getidcircuit()?> Jours</h4>
 
                             <div class="mbr-iconfont mbr-iconfont-social icobig mbri-star" media-simple="true"></div>
 
